@@ -13,35 +13,37 @@
       margin: 0;
       min-height: 100vh;
       font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-      background: linear-gradient(135deg, #0f1021 0%, #1b1f3a 45%, #3d2c5a 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, #eef9ff 0%, #d7f0ff 35%, #b8e6ff 70%, #87cefa 100%);
+      color: #16384d;
       padding: 24px;
     }
 
     .container {
-      max-width: 820px;
+      max-width: 900px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 24px;
-      padding: 28px 24px 32px;
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 28px;
+      padding: 30px 24px 34px;
+      box-shadow: 0 20px 60px rgba(61, 126, 167, 0.18);
     }
 
     .title {
-      font-size: 32px;
-      font-weight: 700;
-      margin: 0 0 8px;
+      font-size: 34px;
+      font-weight: 800;
       text-align: center;
+      margin: 0 0 8px;
+      color: #11405a;
+      letter-spacing: 0.5px;
     }
 
     .subtitle {
       text-align: center;
-      color: rgba(255,255,255,0.78);
       margin: 0 0 24px;
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.8;
+      color: #3b6b84;
     }
 
     .progress-wrap {
@@ -53,44 +55,48 @@
       justify-content: space-between;
       align-items: center;
       font-size: 14px;
-      color: rgba(255,255,255,0.8);
+      color: #46708a;
       margin-bottom: 10px;
     }
 
     .progress-bar {
       width: 100%;
-      height: 10px;
-      background: rgba(255,255,255,0.12);
+      height: 12px;
+      background: rgba(135, 206, 250, 0.22);
       border-radius: 999px;
       overflow: hidden;
     }
 
     .progress-fill {
-      height: 100%;
       width: 0%;
+      height: 100%;
       border-radius: 999px;
-      background: linear-gradient(90deg, #9b7bff 0%, #ff7eb6 100%);
+      background: linear-gradient(90deg, #87cefa 0%, #59b8f7 55%, #3da7ea 100%);
       transition: width 0.25s ease;
+      box-shadow: 0 2px 12px rgba(93, 183, 240, 0.4);
     }
 
     .card {
-      background: rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 24px 20px;
-      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: 24px;
+      padding: 26px 20px;
+      border: 1px solid rgba(135, 206, 250, 0.22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
     }
 
     .question-number {
       font-size: 14px;
-      color: rgba(255,255,255,0.72);
+      color: #54809a;
       margin-bottom: 10px;
+      font-weight: 600;
     }
 
     .question-text {
       font-size: 23px;
-      line-height: 1.7;
-      margin: 0 0 28px;
-      font-weight: 600;
+      line-height: 1.75;
+      margin: 0 0 26px;
+      color: #173f56;
+      font-weight: 700;
     }
 
     .scale-labels {
@@ -99,7 +105,8 @@
       gap: 12px;
       margin-bottom: 14px;
       font-size: 13px;
-      color: rgba(255,255,255,0.72);
+      color: #537d98;
+      font-weight: 600;
     }
 
     .scale {
@@ -110,140 +117,194 @@
 
     .scale button {
       border: none;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 16px 8px;
+      min-height: 60px;
       font-size: 18px;
-      font-weight: 700;
-      color: #fff;
+      font-weight: 800;
+      color: #25506a;
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgba(135, 206, 250, 0.3);
       cursor: pointer;
-      background: rgba(255,255,255,0.10);
-      border: 2px solid transparent;
       transition: all 0.18s ease;
-      min-height: 58px;
+      box-shadow: 0 6px 16px rgba(135, 206, 250, 0.08);
     }
 
     .scale button:hover {
       transform: translateY(-1px);
-      background: rgba(255,255,255,0.16);
+      border-color: rgba(135, 206, 250, 0.65);
+      background: #f6fcff;
     }
 
     .scale button.selected {
-      background: linear-gradient(135deg, #8b6bff 0%, #ff6aa2 100%);
-      border-color: rgba(255,255,255,0.85);
-      box-shadow: 0 8px 24px rgba(255, 105, 180, 0.28);
+      background: linear-gradient(135deg, #87cefa 0%, #5db7f0 100%);
+      color: white;
+      border-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 24px rgba(93, 183, 240, 0.3);
+    }
+
+    .hint {
+      margin-top: 12px;
+      text-align: center;
+      color: #6088a0;
+      font-size: 13px;
     }
 
     .nav {
       display: flex;
-      justify-content: space-between;
       gap: 12px;
       margin-top: 24px;
     }
 
-    .nav button {
+    .nav button,
+    .result-actions button {
       flex: 1;
       border: none;
       border-radius: 16px;
       padding: 14px 18px;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      color: white;
       transition: all 0.2s ease;
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.12);
+      background: rgba(135, 206, 250, 0.2);
+      color: #24536e;
     }
 
     .btn-secondary:hover {
-      background: rgba(255,255,255,0.18);
+      background: rgba(135, 206, 250, 0.3);
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #8a6bff 0%, #ff6ea8 100%);
-      box-shadow: 0 10px 24px rgba(140, 107, 255, 0.28);
+      background: linear-gradient(135deg, #87cefa 0%, #5db7f0 100%);
+      color: white;
+      box-shadow: 0 10px 24px rgba(93, 183, 240, 0.28);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(140, 107, 255, 0.35);
+      box-shadow: 0 14px 32px rgba(93, 183, 240, 0.34);
     }
 
     .btn-disabled {
-      opacity: 0.48;
+      opacity: 0.45;
       cursor: not-allowed;
       box-shadow: none !important;
     }
 
-    .hint {
-      margin-top: 12px;
-      color: rgba(255,255,255,0.68);
-      font-size: 13px;
-      text-align: center;
-    }
-
     .result-title {
       text-align: center;
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       font-size: 30px;
+      color: #18435c;
     }
 
     .result-song {
       text-align: center;
-      font-size: 28px;
-      font-weight: 800;
-      margin: 8px 0 18px;
-      color: #ffd7eb;
+      font-size: 30px;
+      font-weight: 900;
+      color: #2b6d93;
+      margin-bottom: 18px;
+    }
+
+    .result-image-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 8px 0 20px;
+    }
+
+    .result-image {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 22px;
+      border: 3px solid rgba(255,255,255,0.8);
+      box-shadow: 0 16px 36px rgba(76, 153, 196, 0.22);
+      background: rgba(135, 206, 250, 0.15);
     }
 
     .result-lyric {
       text-align: center;
       font-size: 16px;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.86);
+      line-height: 1.9;
+      color: #2c5e7a;
       margin: 0 auto 20px;
-      max-width: 620px;
-      padding: 14px 18px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 16px;
-      border-left: 4px solid #ff88b8;
+      max-width: 650px;
+      padding: 16px 18px;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 18px;
+      border-left: 4px solid #87cefa;
     }
 
     .result-desc {
       text-align: left;
       font-size: 16px;
-      line-height: 1.95;
-      color: rgba(255,255,255,0.92);
-      background: rgba(255,255,255,0.06);
+      line-height: 2;
+      color: #1c465e;
+      background: rgba(255, 255, 255, 0.76);
       border-radius: 18px;
       padding: 18px 18px;
       margin-bottom: 24px;
     }
 
+    .similar-box {
+      background: rgba(255,255,255,0.76);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(135, 206, 250, 0.2);
+    }
+
+    .similar-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #24536e;
+      margin-bottom: 12px;
+    }
+
+    .similar-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .similar-item {
+      background: linear-gradient(135deg, rgba(135,206,250,0.18) 0%, rgba(93,183,240,0.12) 100%);
+      border-radius: 16px;
+      padding: 14px 12px;
+      text-align: center;
+      color: #275772;
+      border: 1px solid rgba(135, 206, 250, 0.22);
+      font-weight: 700;
+    }
+
     .scores-box {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-bottom: 24px;
     }
 
     .score-item {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(135,206,250,0.22);
       border-radius: 16px;
       padding: 14px;
     }
 
     .score-item .label {
       font-size: 13px;
-      color: rgba(255,255,255,0.72);
+      color: #5a829a;
       margin-bottom: 6px;
+      font-weight: 600;
     }
 
     .score-item .value {
-      font-size: 24px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 900;
+      color: #21536d;
     }
 
     .result-actions {
@@ -251,8 +312,18 @@
       gap: 12px;
     }
 
-    .result-actions button {
-      flex: 1;
+    @media (max-width: 760px) {
+      .scale {
+        gap: 8px;
+      }
+
+      .scores-box {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .similar-list {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
@@ -265,15 +336,11 @@
       }
 
       .title {
-        font-size: 26px;
+        font-size: 28px;
       }
 
       .question-text {
         font-size: 20px;
-      }
-
-      .scale {
-        gap: 8px;
       }
 
       .scale button {
@@ -286,9 +353,14 @@
         grid-template-columns: 1fr;
       }
 
-      .result-actions,
-      .nav {
+      .nav,
+      .result-actions {
         flex-direction: column;
+      }
+
+      .result-image {
+        width: 190px;
+        height: 190px;
       }
     }
   </style>
@@ -296,7 +368,10 @@
 <body>
   <div class="container">
     <h1 class="title">你是 milet 的哪一首歌？</h1>
-    <p class="subtitle">请根据你对自己的感觉选择 1–7 分。<br>1 = 非常不认同，7 = 非常认同。</p>
+    <p class="subtitle">
+      请根据你更自然、更接近真实状态的感觉作答。<br>
+      1 = 非常不认同，7 = 非常认同。
+    </p>
 
     <div class="progress-wrap">
       <div class="progress-top">
@@ -313,147 +388,200 @@
 
   <script>
     const questions = [
-      "当我经历重要的情绪起伏时，我通常会首先想到某个具体的人。",
-      "即使没有说出口，我也会希望重要的人能够理解我当下的状态。",
-      "有些人即使不在身边，也会持续影响我看待生活的方式。",
-      "遇到难以处理的时刻时，我更倾向于自己消化，而不是把注意力放在某个人身上。",
-      "当情绪累积到一定程度时，我会想办法让它被表达出来。",
-      "面对强烈的感受时，我通常会先压住它，而不是立刻表现出来。",
-      "在重要关系里，我不太习惯把自己的真实想法说得很明确。",
-      "有些话如果一直停留在心里，会让我觉得不如说出来更好。",
-      "即使处在混乱或不确定中，我通常还是能慢慢找回自己的节奏。",
-      "当生活发生变化时，我常常需要很长时间才能重新确认自己要往哪里走。",
-      "别人对我的看法会明显影响我对自己的判断。",
-      "哪怕经历过失落或动摇，我依然相信自己最终能整理好内心。",
-      "在一段难熬的时期里，我更容易把注意力放在接下来还能做什么，而不是已经失去什么。",
-      "有时候我会长时间停留在某段记忆、某种情绪，难以抽离。",
-      "当我站在人生的岔路口时，比起退回熟悉的地方，我更愿意尝试继续往前走。"
+      "深夜回到住处后，如果这一天里发生了让你很在意的事，你更容易自然地想到某个具体的人。",
+      "有些话明明已经在心里盘旋很久了，我通常还是会找机会把它明确说出来。",
+      "当我反复想起某段关系或某个人时，那种感觉会明显扰动我当下的情绪。",
+      "如果我和重要的人之间出现了一点疏离，我很难装作什么都没有发生。",
+      "一段时间不顺的时候，我更容易先想下一步还能做什么，而不是一直被旧情绪拉回去。",
+      "站在人生新阶段开始前，即使不完全确定，我也更愿意继续往前走。",
+      "如果朋友突然在凌晨给我发来一句“在吗”，我会很快被带进那种情绪里。",
+      "一个人走夜路、坐车或者发呆时，我很容易被某种氛围整个包住。",
+      "面对一段没有明确答案的关系，我会很想知道答案，而不是长期接受模糊状态。",
+      "当别人评价我、质疑我，或者不理解我时，我最后通常还是会回到自己的判断。",
+      "比起清晨、风、远方和出发感，我更容易被夜晚、城市、霓虹和失重感吸引。",
+      "如果把情绪写成一首歌，我更偏向浓一点、锋利一点、直接撞上来的感觉。",
+      "和重要的人相处时，我更在意当下那种强烈而不可替代的感觉。",
+      "如果生活像一部电影，我会更想活在情绪浓烈、带一点危险和偏执的夜里。",
+      "当我想象未来的自己时，我更希望自己坚定、锋利、不被轻易定义。"
     ];
 
-    const reverse = [3, 5, 6, 9, 10, 13];
-
+    // 6个维度
+    // rel = 关系重心
+    // exp = 表达方式
+    // emo = 情绪能量
+    // self = 主体稳定
+    // time = 时间取向（高=更往前）
+    // vibe = 世界氛围偏好（高=更夜晚/霓虹/迷离）
     const dimensionMap = [
-      "rel","rel","rel","rel",
-      "exp","exp","exp","exp",
-      "self","self","self","self",
-      "world","world","world"
+      "rel",   // 1
+      "exp",   // 2
+      "emo",   // 3
+      "emo",   // 4
+      "time",  // 5
+      "time",  // 6
+      "rel",   // 7
+      "vibe",  // 8
+      "rel",   // 9
+      "self",  // 10
+      "vibe",  // 11
+      "exp",   // 12
+      "rel",   // 13
+      "vibe",  // 14
+      "self"   // 15
     ];
+
+    // 每个维度出现次数
+    const dimensionCounts = {
+      rel: 4,
+      exp: 2,
+      emo: 2,
+      self: 2,
+      time: 2,
+      vibe: 3
+    };
+
 
     const songs = [
       {
         key: "inside you",
-        rel: 6.8, exp: 6.2, self: 2.4, world: 2.0,
+        rel: 6.8, exp: 6.4, emo: 6.7, self: 2.4, time: 2.1, vibe: 5.7,
         lyric: "Tell me what is inside you inside you now",
-        desc: "你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。"
+        desc: "你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=inside+you"
       },
       {
         key: "i still",
-        rel: 6.6, exp: 3.8, self: 4.2, world: 4.0,
+        rel: 6.3, exp: 3.8, emo: 4.5, self: 4.3, time: 4.0, vibe: 3.6,
         lyric: "And I still believe in you and me",
-        desc: "你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。"
+        desc: "你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=i+still"
       },
       {
         key: "the hardest",
-        rel: 6.9, exp: 6.5, self: 2.2, world: 1.9,
+        rel: 6.9, exp: 6.5, emo: 6.8, self: 2.2, time: 1.8, vibe: 5.4,
         lyric: "I only want you to stay beside me",
-        desc: "你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。"
+        desc: "你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=the+hardest"
       },
       {
         key: "us",
-        rel: 6.7, exp: 5.8, self: 3.5, world: 2.8,
+        rel: 6.6, exp: 5.9, emo: 5.8, self: 3.5, time: 2.8, vibe: 4.5,
         lyric: "好きだと言ってしまえば 何かが変わるかな",
-        desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。"
+        desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=us"
       },
       {
         key: "tell me",
-        rel: 6.8, exp: 5.0, self: 2.9, world: 2.2,
+        rel: 6.5, exp: 5.0, emo: 5.4, self: 2.9, time: 2.2, vibe: 4.8,
         lyric: "So just tell me now",
-        desc: "你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。"
+        desc: "你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=tell+me"
       },
       {
         key: "december",
-        rel: 6.2, exp: 2.8, self: 4.4, world: 2.3,
+        rel: 5.7, exp: 2.8, emo: 3.9, self: 4.5, time: 2.2, vibe: 2.6,
         lyric: "Don't need to say a word",
-        desc: "你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。"
+        desc: "你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=december"
       },
       {
         key: "flare",
-        rel: 5.9, exp: 5.4, self: 5.8, world: 6.7,
+        rel: 5.6, exp: 5.1, emo: 5.4, self: 5.9, time: 6.8, vibe: 2.4,
         lyric: "一番に光れ",
-        desc: "你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。"
+        desc: "你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=flare"
       },
       {
         key: "航海前夜",
-        rel: 5.2, exp: 4.6, self: 5.4, world: 6.2,
+        rel: 5.0, exp: 4.4, emo: 4.7, self: 5.5, time: 6.3, vibe: 3.3,
         lyric: "航海前夜の空に歌う",
-        desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。"
+        desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=%E8%88%AA%E6%B5%B7%E5%89%8D%E5%A4%9C"
       },
       {
         key: "anytime anywhere",
-        rel: 6.0, exp: 3.7, self: 5.1, world: 5.8,
+        rel: 5.9, exp: 3.7, emo: 4.2, self: 5.1, time: 5.8, vibe: 2.8,
         lyric: "Anytime anywhere I'll be there",
-        desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。"
+        desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=anytime+anywhere"
       },
       {
         key: "who i am",
-        rel: 4.5, exp: 5.5, self: 6.8, world: 6.0,
+        rel: 3.9, exp: 5.2, emo: 4.8, self: 6.9, time: 6.0, vibe: 2.9,
         lyric: "Remember who you are",
-        desc: "你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。"
+        desc: "你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=who+i+am"
       },
       {
         key: "waterproof",
-        rel: 3.9, exp: 6.3, self: 6.4, world: 5.7,
+        rel: 3.4, exp: 6.2, emo: 6.0, self: 6.5, time: 5.7, vibe: 4.8,
         lyric: "I'm waterproof",
-        desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。"
+        desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=waterproof"
       },
       {
         key: "レッドネオン",
-        rel: 5.6, exp: 4.7, self: 5.0, world: 4.8,
+        rel: 5.4, exp: 4.4, emo: 4.9, self: 5.0, time: 4.6, vibe: 6.0,
         lyric: "笑っていてよ",
-        desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。"
+        desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=%E3%83%AC%E3%83%83%E3%83%89%E3%83%8D%E3%82%AA%E3%83%B3"
       },
       {
         key: "ordinary days",
-        rel: 6.1, exp: 3.6, self: 6.0, world: 6.1,
+        rel: 5.8, exp: 3.3, emo: 3.8, self: 6.1, time: 6.2, vibe: 2.0,
         lyric: "今が愛おしいんだ",
-        desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。"
+        desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=ordinary+days"
       },
       {
         key: "hey song",
-        rel: 5.1, exp: 5.0, self: 5.8, world: 5.9,
+        rel: 4.8, exp: 4.7, emo: 4.7, self: 5.8, time: 5.9, vibe: 4.0,
         lyric: "Everything's gonna be alright",
-        desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。"
+        desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=hey+song"
       },
       {
         key: "hell club",
-        rel: 4.8, exp: 6.7, self: 2.3, world: 1.5,
+        rel: 4.3, exp: 6.7, emo: 6.6, self: 2.3, time: 1.5, vibe: 7.0,
         lyric: "There's no love in your eye",
-        desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。"
+        desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=hell+club"
       },
       {
         key: "絆ノ奇跡",
-        rel: 6.4, exp: 5.9, self: 6.3, world: 6.9,
+        rel: 6.2, exp: 5.8, emo: 5.9, self: 6.3, time: 6.9, vibe: 3.0,
         lyric: "絆が紡いで生まれた奇跡を",
-        desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。"
+        desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=%E7%B5%86%E3%83%8E%E5%A5%87%E8%B7%A1"
       },
       {
         key: "seventh heaven",
-        rel: 5.7, exp: 6.6, self: 4.9, world: 4.9,
+        rel: 5.3, exp: 6.6, emo: 6.3, self: 4.7, time: 4.8, vibe: 6.8,
         lyric: "Cause our heaven is here",
-        desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。"
+        desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=seventh+heaven"
       },
       {
         key: "drown",
-        rel: 5.9, exp: 4.2, self: 2.6, world: 2.1,
+        rel: 5.6, exp: 4.1, emo: 5.2, self: 2.6, time: 2.0, vibe: 5.2,
         lyric: "You're gonna make me drown",
-        desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。"
+        desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=drown"
       },
       {
         key: "rewrite",
-        rel: 5.5, exp: 5.4, self: 6.5, world: 6.4,
+        rel: 5.1, exp: 5.3, emo: 5.1, self: 6.5, time: 6.4, vibe: 4.2,
         lyric: "We can try to rewrite now",
-        desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。"
+        desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=rewrite"
       }
+      {
+        key: "hanataba",
+        rel: 6.4, exp: 3.9, emo: 4.8, self: 4.9, time: 5.2, vibe: 2.4,
+        lyric: "名前のない花を選んでくれた",
+        desc: "你很容易被温柔而笨拙的爱打动。你未必总是强大，但你会因为某个人真实的靠近，而慢慢长出继续走下去的勇气。",
+        image: "https://placehold.co/500x500/87cefa/ffffff?text=hanataba"
+}
     ];
 
     let answers = new Array(questions.length).fill(null);
@@ -473,7 +601,6 @@
 
     function renderQuestion() {
       updateProgress();
-
       const selected = answers[current];
 
       quizArea.innerHTML = `
@@ -485,7 +612,7 @@
           <span>7 = 非常认同</span>
         </div>
 
-        <div class="scale" id="scaleBox">
+        <div class="scale">
           ${[1,2,3,4,5,6,7].map(num => `
             <button
               class="${selected === num ? 'selected' : ''}"
@@ -494,7 +621,7 @@
           `).join('')}
         </div>
 
-        <div class="hint">请选择最符合你当下感觉的分数</div>
+        <div class="hint">请选择最符合你真实状态的分数</div>
 
         <div class="nav">
           <button
@@ -537,39 +664,43 @@
       }
     }
 
-    function showResult() {
-      const scores = { rel: 0, exp: 0, self: 0, world: 0 };
-      const counts = { rel: 0, exp: 0, self: 0, world: 0 };
+    function calculateScores() {
+      const scores = { rel: 0, exp: 0, emo: 0, self: 0, time: 0, vibe: 0 };
 
       answers.forEach((val, i) => {
-        let finalVal = val;
-        if (reverse.includes(i)) {
-          finalVal = 8 - finalVal;
-        }
         const dim = dimensionMap[i];
-        scores[dim] += finalVal;
-        counts[dim] += 1;
+        scores[dim] += val;
       });
 
       for (const key in scores) {
-        scores[key] = scores[key] / counts[key];
+        scores[key] = scores[key] / dimensionCounts[key];
       }
 
-      let bestSong = null;
-      let minDistance = Infinity;
+      return scores;
+    }
 
-      songs.forEach(song => {
-        const distance =
-          Math.pow(scores.rel - song.rel, 2) +
-          Math.pow(scores.exp - song.exp, 2) +
-          Math.pow(scores.self - song.self, 2) +
-          Math.pow(scores.world - song.world, 2);
+    function getRankedSongs(scores) {
+      return songs
+        .map(song => {
+          const distance =
+            Math.pow(scores.rel - song.rel, 2) +
+            Math.pow(scores.exp - song.exp, 2) +
+            Math.pow(scores.emo - song.emo, 2) +
+            Math.pow(scores.self - song.self, 2) +
+            Math.pow(scores.time - song.time, 2) +
+            Math.pow(scores.vibe - song.vibe, 2);
 
-        if (distance < minDistance) {
-          minDistance = distance;
-          bestSong = song;
-        }
-      });
+          return { ...song, distance };
+        })
+        .sort((a, b) => a.distance - b.distance);
+    }
+
+    function showResult() {
+      const scores = calculateScores();
+      const rankedSongs = getRankedSongs(scores);
+
+      const bestSong = rankedSongs[0];
+      const similarSongs = rankedSongs.slice(1, 4);
 
       progressText.textContent = "测试完成";
       progressPercent.textContent = "100%";
@@ -579,13 +710,26 @@
         <h2 class="result-title">测试结果</h2>
         <div class="result-song">你最像《${bestSong.key}》</div>
 
+        <div class="result-image-wrap">
+          <img src="${bestSong.image}" alt="${bestSong.key}" class="result-image">
+        </div>
+
         <div class="result-lyric">“${bestSong.lyric}”</div>
 
         <div class="result-desc">${bestSong.desc}</div>
 
+        <div class="similar-box">
+          <div class="similar-title">另外 3 首和你也很接近</div>
+          <div class="similar-list">
+            ${similarSongs.map(song => `
+              <div class="similar-item">《${song.key}》</div>
+            `).join('')}
+          </div>
+        </div>
+
         <div class="scores-box">
           <div class="score-item">
-            <div class="label">关系指向</div>
+            <div class="label">关系重心</div>
             <div class="value">${scores.rel.toFixed(2)}</div>
           </div>
           <div class="score-item">
@@ -593,12 +737,20 @@
             <div class="value">${scores.exp.toFixed(2)}</div>
           </div>
           <div class="score-item">
-            <div class="label">主体状态</div>
+            <div class="label">情绪能量</div>
+            <div class="value">${scores.emo.toFixed(2)}</div>
+          </div>
+          <div class="score-item">
+            <div class="label">主体稳定</div>
             <div class="value">${scores.self.toFixed(2)}</div>
           </div>
           <div class="score-item">
-            <div class="label">世界取向</div>
-            <div class="value">${scores.world.toFixed(2)}</div>
+            <div class="label">时间取向</div>
+            <div class="value">${scores.time.toFixed(2)}</div>
+          </div>
+          <div class="score-item">
+            <div class="label">氛围偏好</div>
+            <div class="value">${scores.vibe.toFixed(2)}</div>
           </div>
         </div>
 
