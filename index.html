@@ -293,7 +293,14 @@
       border-radius: 16px;
       padding: 14px;
     }
+.feedback-text a {
+  color: #5d8aa8;
+  text-decoration: none;
+}
 
+.feedback-text a:hover {
+  text-decoration: underline;
+}
     .score-item .label {
       font-size: 13px;
       color: #5a829a;
@@ -818,6 +825,11 @@
           <button class="btn-secondary" onclick="restartTest()">重新测试</button>
           <button class="btn-primary" onclick="shareResult('${bestSong.key}')">复制结果文案</button>
         </div>
+        <div class="feedback-text">
+  您对这个测试有任何建议，都可以邮件联系
+  <a href="mailto:imnotshizu3@gmail.com">imnotshizu3@gmail.com</a>，
+  也欢迎分享测试结果，方便香蕉蕉调整参数等设计~
+</div>
       `;
     }
 
@@ -835,7 +847,7 @@
         alert("复制失败，请手动复制。");
       });
     }
-
+    
     renderQuestion();
   </script>
 </body>
