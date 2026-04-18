@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>你是milet的哪一首歌？</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  text-align: center;
+  padding: 40px;
+}
+.container {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+}
+.scale button {
+  margin: 5px;
+  padding: 10px;
+}
+.hidden { display: none; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>你是 milet 的哪一首歌？</h1>
+  <div id="quiz"></div>
+  <button id="nextBtn">下一题</button>
+</div>
+
+<script>
+
+// ===== 题目 =====
+const questions = [
+"当我经历重要的情绪起伏时，我通常会首先想到某个具体的人。",
+"即使没有说出口，我也会希望重要的人能够理解我当下的状态。",
+"有些人即使不在身边，也会持续影响我看待生活的方式。",
+"遇到难以处理的时刻时，我更倾向于自己消化，而不是把注意力放在某个人身上。",
+"当情绪累积到一定程度时，我会想办法让它被表达出来。",
+"面对强烈的感受时，我通常会先压住它，而不是立刻表现出来。",
+"在重要关系里，我不太习惯把自己的真实想法说得很明确。",
+"有些话如果一直停留在心里，会让我觉得不如说出来更好。",
+"即使处在混乱或不确定中，我通常还是能慢慢找回自己的节奏。",
+"当生活发生变化时，我常常需要很长时间才能重新确认自己要往哪里走。",
+"别人对我的看法会明显影响我对自己的判断。",
+"哪怕经历过失落或动摇，我依然相信自己最终能整理好内心。",
+"在一段难熬的时期里，我更容易把注意力放在接下来还能做什么，而不是已经失去什么。",
+"有时候我会长时间停留在某段记忆、某种情绪，难以抽离。",
+"当我站在人生的岔路口时，比起退回熟悉的地方，我更愿意尝试继续往前走。"
+];
+
+// ===== 反向题（从0开始）=====
+const reverse = [3,5,6,9,10,13];
+
+// ===== 维度映射 =====
+const dimensionMap = [
+"rel","rel","rel","rel",
+"exp","exp","exp","exp",
+"self","self","self","self",
+"world","world","world"
+];
+
+let answers = [];
+let current = 0;
+
+const quiz = document.getElementById("quiz");
+const nextBtn = document.getElementById("nextBtn");
+
+// ===== 渲染题目 =====
+function renderQuestion() {
+  quiz.innerHTML = "";
+
+  if (current >= questions.length) {
+    showResult();
+    return;
+  }
+
+  let q = document.createElement("h3");
+  q.innerText = `第 ${current+1} 题：${questions[current]}`;
+  quiz.appendChild(q);
+
+  let scale = document.createElement("div");
+  scale.className = "scale";
+
+  for (let i=1;i<=7;i++) {
+    let btn = document.createElement("button");
+    btn.innerText = i;
+    btn.onclick = () => selectAnswer(i);
+    scale.appendChild(btn);
+  }
+
+  quiz.appendChild(scale);
+}
+
+// ===== 选择答案 =====
+function selectAnswer(value){
+  answers[current] = value;
+}
+
+// ===== 下一题 =====
+nextBtn.onclick = () => {
+  if (answers[current] == null){
+    alert("请先选择一个分数");
+    return;
+  }
+  current++;
+  renderQuestion();
+};
+
+// ===== 计算结果 =====
+function showResult(){
+
+  let scores = {rel:0, exp:0, self:0, world:0};
+  let counts = {rel:0, exp:0, self:0, world:0};
+
+  answers.forEach((val, i) => {
+
+    if (reverse.includes(i)){
+      val = 8 - val;
+    }
+
+    let dim = dimensionMap[i];
+    scores[dim] += val;
+    counts[dim] += 1;
+  });
+
+  for (let key in scores){
+    scores[key] = scores[key] / counts[key];
+  }
+
+  // ===== 简单结果逻辑（先占位）=====
+// ===== 歌曲坐标 =====
+const songs = [
+  {
+    key: "inside you",
+    rel: 6.8, exp: 6.2, self: 2.4, world: 2.0,
+    desc: "你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。"
+  },
+  {
+    key: "i still",
+    rel: 6.6, exp: 3.8, self: 4.2, world: 4.0,
+    desc: "你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。"
+  },
+  {
+    key: "the hardest",
+    rel: 6.9, exp: 6.5, self: 2.2, world: 1.9,
+    desc: "你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。"
+  },
+  {
+    key: "us",
+    rel: 6.7, exp: 5.8, self: 3.5, world: 2.8,
+    desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。"
+  },
+  {
+    key: "tell me",
+    rel: 6.8, exp: 5.0, self: 2.9, world: 2.2,
+    desc: "你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。"
+  },
+  {
+    key: "december",
+    rel: 6.2, exp: 2.8, self: 4.4, world: 2.3,
+    desc: "你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。"
+  },
+  {
+    key: "flare",
+    rel: 5.9, exp: 5.4, self: 5.8, world: 6.7,
+    desc: "你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。"
+  },
+  {
+    key: "航海前夜",
+    rel: 5.2, exp: 4.6, self: 5.4, world: 6.2,
+    desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。"
+  },
+  {
+    key: "anytime anywhere",
+    rel: 6.0, exp: 3.7, self: 5.1, world: 5.8,
+    desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。"
+  },
+  {
+    key: "who i am",
+    rel: 4.5, exp: 5.5, self: 6.8, world: 6.0,
+    desc: "你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。"
+  },
+  {
+    key: "waterproof",
+    rel: 3.9, exp: 6.3, self: 6.4, world: 5.7,
+    desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。"
+  },
+  {
+    key: "レッドネオン",
+    rel: 5.6, exp: 4.7, self: 5.0, world: 4.8,
+    desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。"
+  },
+  {
+    key: "ordinary days",
+    rel: 6.1, exp: 3.6, self: 6.0, world: 6.1,
+    desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。"
+  },
+  {
+    key: "hey song",
+    rel: 5.1, exp: 5.0, self: 5.8, world: 5.9,
+    desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。"
+  },
+  {
+    key: "hell club",
+    rel: 4.8, exp: 6.7, self: 2.3, world: 1.5,
+    desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。"
+  },
+  {
+    key: "絆ノ奇跡",
+    rel: 6.4, exp: 5.9, self: 6.3, world: 6.9,
+    desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。"
+  },
+  {
+    key: "seventh heaven",
+    rel: 5.7, exp: 6.6, self: 4.9, world: 4.9,
+    desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。"
+  },
+  {
+    key: "drown",
+    rel: 5.9, exp: 4.2, self: 2.6, world: 2.1,
+    desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。"
+  },
+  {
+    key: "rewrite",
+    rel: 5.5, exp: 5.4, self: 6.5, world: 6.4,
+    desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。"
+  }
+];
+
+// ===== 计算最近歌曲 =====
+let bestSong = null;
+let minDistance = Infinity;
+
+songs.forEach(song => {
+  const distance =
+    Math.pow(scores.rel - song.rel, 2) +
+    Math.pow(scores.exp - song.exp, 2) +
+    Math.pow(scores.self - song.self, 2) +
+    Math.pow(scores.world - song.world, 2);
+
+  if (distance < minDistance) {
+    minDistance = distance;
+    bestSong = song;
+  }
+});
+
+// ===== 展示结果 =====
+quiz.innerHTML = `
+  <h2>测试结果</h2>
+  <h3>你最像 milet 的：${bestSong.key}</h3>
+  <p>${bestSong.desc}</p>
+
+  <hr style="margin:24px 0;">
+
+  <p><strong>你的维度分数</strong></p>
+  <p>关系指向：${scores.rel.toFixed(2)}</p>
+  <p>表达方式：${scores.exp.toFixed(2)}</p>
+  <p>主体状态：${scores.self.toFixed(2)}</p>
+  <p>世界取向：${scores.world.toFixed(2)}</p>
+
+  <button onclick="location.reload()">重新测试</button>
+`;
+
+nextBtn.style.display = "none";
+
+  nextBtn.style.display = "none";
+}
+
+// 初始化
+renderQuestion();
+
+</script>
+
+</body>
+</html>
