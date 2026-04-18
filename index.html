@@ -370,7 +370,7 @@
     <h1 class="title">你是 milet 的哪一首歌？</h1>
     <p class="subtitle">
       请根据你更自然、更接近真实状态的感觉作答。<br>
-      1 = 非常不认同，7 = 非常认同。
+每题两端代表不同倾向，请选择最符合你的分数。
     </p>
 
     <div class="progress-wrap">
@@ -665,12 +665,12 @@
 
       quizArea.innerHTML = `
         <div class="question-number">Question ${current + 1}</div>
-        <h2 class="question-text">${questions[current]}</h2>
+        <h2 class="question-text">${questions[current].text}</h2>
 
         <div class="scale-labels">
-          <span>1 = 非常不认同</span>
-          <span>7 = 非常认同</span>
-        </div>
+  <span>${questions[current].left}</span>
+  <span>${questions[current].right}</span>
+</div>
 
         <div class="scale">
           ${[1,2,3,4,5,6,7].map(num => `
