@@ -1,280 +1,630 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8">
-<title>你是milet的哪一首歌？</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  text-align: center;
-  padding: 40px;
-}
-.container {
-  max-width: 700px;
-  margin: auto;
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-}
-.scale button {
-  margin: 5px;
-  padding: 10px;
-}
-.hidden { display: none; }
-</style>
-</head>
-
-<body>
-
-<div class="container">
-  <h1>你是 milet 的哪一首歌？</h1>
-  <div id="quiz"></div>
-  <button id="nextBtn">下一题</button>
-</div>
-
-<script>
-
-// ===== 题目 =====
-const questions = [
-"当我经历重要的情绪起伏时，我通常会首先想到某个具体的人。",
-"即使没有说出口，我也会希望重要的人能够理解我当下的状态。",
-"有些人即使不在身边，也会持续影响我看待生活的方式。",
-"遇到难以处理的时刻时，我更倾向于自己消化，而不是把注意力放在某个人身上。",
-"当情绪累积到一定程度时，我会想办法让它被表达出来。",
-"面对强烈的感受时，我通常会先压住它，而不是立刻表现出来。",
-"在重要关系里，我不太习惯把自己的真实想法说得很明确。",
-"有些话如果一直停留在心里，会让我觉得不如说出来更好。",
-"即使处在混乱或不确定中，我通常还是能慢慢找回自己的节奏。",
-"当生活发生变化时，我常常需要很长时间才能重新确认自己要往哪里走。",
-"别人对我的看法会明显影响我对自己的判断。",
-"哪怕经历过失落或动摇，我依然相信自己最终能整理好内心。",
-"在一段难熬的时期里，我更容易把注意力放在接下来还能做什么，而不是已经失去什么。",
-"有时候我会长时间停留在某段记忆、某种情绪，难以抽离。",
-"当我站在人生的岔路口时，比起退回熟悉的地方，我更愿意尝试继续往前走。"
-];
-
-// ===== 反向题（从0开始）=====
-const reverse = [3,5,6,9,10,13];
-
-// ===== 维度映射 =====
-const dimensionMap = [
-"rel","rel","rel","rel",
-"exp","exp","exp","exp",
-"self","self","self","self",
-"world","world","world"
-];
-
-let answers = [];
-let current = 0;
-
-const quiz = document.getElementById("quiz");
-const nextBtn = document.getElementById("nextBtn");
-
-// ===== 渲染题目 =====
-function renderQuestion() {
-  quiz.innerHTML = "";
-
-  if (current >= questions.length) {
-    showResult();
-    return;
-  }
-
-  let q = document.createElement("h3");
-  q.innerText = `第 ${current+1} 题：${questions[current]}`;
-  quiz.appendChild(q);
-
-  let scale = document.createElement("div");
-  scale.className = "scale";
-
-  for (let i=1;i<=7;i++) {
-    let btn = document.createElement("button");
-    btn.innerText = i;
-    btn.onclick = () => selectAnswer(i);
-    scale.appendChild(btn);
-  }
-
-  quiz.appendChild(scale);
-}
-
-// ===== 选择答案 =====
-function selectAnswer(value){
-  answers[current] = value;
-}
-
-// ===== 下一题 =====
-nextBtn.onclick = () => {
-  if (answers[current] == null){
-    alert("请先选择一个分数");
-    return;
-  }
-  current++;
-  renderQuestion();
-};
-
-// ===== 计算结果 =====
-function showResult(){
-
-  let scores = {rel:0, exp:0, self:0, world:0};
-  let counts = {rel:0, exp:0, self:0, world:0};
-
-  answers.forEach((val, i) => {
-
-    if (reverse.includes(i)){
-      val = 8 - val;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>你是 milet 的哪一首歌？</title>
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    let dim = dimensionMap[i];
-    scores[dim] += val;
-    counts[dim] += 1;
-  });
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background: linear-gradient(135deg, #0f1021 0%, #1b1f3a 45%, #3d2c5a 100%);
+      color: #ffffff;
+      padding: 24px;
+    }
 
-  for (let key in scores){
-    scores[key] = scores[key] / counts[key];
-  }
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px;
+      padding: 28px 24px 32px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+    }
 
-  // ===== 简单结果逻辑（先占位）=====
-// ===== 歌曲坐标 =====
-const songs = [
-  {
-    key: "inside you",
-    rel: 6.8, exp: 6.2, self: 2.4, world: 2.0,
-    desc: "你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。"
-  },
-  {
-    key: "i still",
-    rel: 6.6, exp: 3.8, self: 4.2, world: 4.0,
-    desc: "你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。"
-  },
-  {
-    key: "the hardest",
-    rel: 6.9, exp: 6.5, self: 2.2, world: 1.9,
-    desc: "你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。"
-  },
-  {
-    key: "us",
-    rel: 6.7, exp: 5.8, self: 3.5, world: 2.8,
-    desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。"
-  },
-  {
-    key: "tell me",
-    rel: 6.8, exp: 5.0, self: 2.9, world: 2.2,
-    desc: "你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。"
-  },
-  {
-    key: "december",
-    rel: 6.2, exp: 2.8, self: 4.4, world: 2.3,
-    desc: "你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。"
-  },
-  {
-    key: "flare",
-    rel: 5.9, exp: 5.4, self: 5.8, world: 6.7,
-    desc: "你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。"
-  },
-  {
-    key: "航海前夜",
-    rel: 5.2, exp: 4.6, self: 5.4, world: 6.2,
-    desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。"
-  },
-  {
-    key: "anytime anywhere",
-    rel: 6.0, exp: 3.7, self: 5.1, world: 5.8,
-    desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。"
-  },
-  {
-    key: "who i am",
-    rel: 4.5, exp: 5.5, self: 6.8, world: 6.0,
-    desc: "你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。"
-  },
-  {
-    key: "waterproof",
-    rel: 3.9, exp: 6.3, self: 6.4, world: 5.7,
-    desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。"
-  },
-  {
-    key: "レッドネオン",
-    rel: 5.6, exp: 4.7, self: 5.0, world: 4.8,
-    desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。"
-  },
-  {
-    key: "ordinary days",
-    rel: 6.1, exp: 3.6, self: 6.0, world: 6.1,
-    desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。"
-  },
-  {
-    key: "hey song",
-    rel: 5.1, exp: 5.0, self: 5.8, world: 5.9,
-    desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。"
-  },
-  {
-    key: "hell club",
-    rel: 4.8, exp: 6.7, self: 2.3, world: 1.5,
-    desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。"
-  },
-  {
-    key: "絆ノ奇跡",
-    rel: 6.4, exp: 5.9, self: 6.3, world: 6.9,
-    desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。"
-  },
-  {
-    key: "seventh heaven",
-    rel: 5.7, exp: 6.6, self: 4.9, world: 4.9,
-    desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。"
-  },
-  {
-    key: "drown",
-    rel: 5.9, exp: 4.2, self: 2.6, world: 2.1,
-    desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。"
-  },
-  {
-    key: "rewrite",
-    rel: 5.5, exp: 5.4, self: 6.5, world: 6.4,
-    desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。"
-  }
-];
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      text-align: center;
+    }
 
-// ===== 计算最近歌曲 =====
-let bestSong = null;
-let minDistance = Infinity;
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.78);
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
 
-songs.forEach(song => {
-  const distance =
-    Math.pow(scores.rel - song.rel, 2) +
-    Math.pow(scores.exp - song.exp, 2) +
-    Math.pow(scores.self - song.self, 2) +
-    Math.pow(scores.world - song.world, 2);
+    .progress-wrap {
+      margin-bottom: 24px;
+    }
 
-  if (distance < minDistance) {
-    minDistance = distance;
-    bestSong = song;
-  }
-});
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 10px;
+    }
 
-// ===== 展示结果 =====
-quiz.innerHTML = `
-  <h2>测试结果</h2>
-  <h3>你最像 milet 的：${bestSong.key}</h3>
-  <p>${bestSong.desc}</p>
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+      overflow: hidden;
+    }
 
-  <hr style="margin:24px 0;">
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #9b7bff 0%, #ff7eb6 100%);
+      transition: width 0.25s ease;
+    }
 
-  <p><strong>你的维度分数</strong></p>
-  <p>关系指向：${scores.rel.toFixed(2)}</p>
-  <p>表达方式：${scores.exp.toFixed(2)}</p>
-  <p>主体状态：${scores.self.toFixed(2)}</p>
-  <p>世界取向：${scores.world.toFixed(2)}</p>
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 24px 20px;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
 
-  <button onclick="location.reload()">重新测试</button>
-`;
+    .question-number {
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 10px;
+    }
 
-nextBtn.style.display = "none";
+    .question-text {
+      font-size: 23px;
+      line-height: 1.7;
+      margin: 0 0 28px;
+      font-weight: 600;
+    }
 
-}
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+    }
 
-// 初始化
-renderQuestion();
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
 
-</script>
+    .scale button {
+      border: none;
+      border-radius: 16px;
+      padding: 16px 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      background: rgba(255,255,255,0.10);
+      border: 2px solid transparent;
+      transition: all 0.18s ease;
+      min-height: 58px;
+    }
 
+    .scale button:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.16);
+    }
+
+    .scale button.selected {
+      background: linear-gradient(135deg, #8b6bff 0%, #ff6aa2 100%);
+      border-color: rgba(255,255,255,0.85);
+      box-shadow: 0 8px 24px rgba(255, 105, 180, 0.28);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .nav button {
+      flex: 1;
+      border: none;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #8a6bff 0%, #ff6ea8 100%);
+      box-shadow: 0 10px 24px rgba(140, 107, 255, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(140, 107, 255, 0.35);
+    }
+
+    .btn-disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      box-shadow: none !important;
+    }
+
+    .hint {
+      margin-top: 12px;
+      color: rgba(255,255,255,0.68);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .result-title {
+      text-align: center;
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+
+    .result-song {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      margin: 8px 0 18px;
+      color: #ffd7eb;
+    }
+
+    .result-lyric {
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.86);
+      margin: 0 auto 20px;
+      max-width: 620px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      border-left: 4px solid #ff88b8;
+    }
+
+    .result-desc {
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.95;
+      color: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 18px 18px;
+      margin-bottom: 24px;
+    }
+
+    .scores-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .score-item {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .score-item .label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 6px;
+    }
+
+    .score-item .value {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .result-actions button {
+      flex: 1;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .container {
+        padding: 22px 16px 24px;
+      }
+
+      .title {
+        font-size: 26px;
+      }
+
+      .question-text {
+        font-size: 20px;
+      }
+
+      .scale {
+        gap: 8px;
+      }
+
+      .scale button {
+        min-height: 52px;
+        padding: 12px 4px;
+        font-size: 16px;
+      }
+
+      .scores-box {
+        grid-template-columns: 1fr;
+      }
+
+      .result-actions,
+      .nav {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">你是 milet 的哪一首歌？</h1>
+    <p class="subtitle">请根据你对自己的感觉选择 1–7 分。<br>1 = 非常不认同，7 = 非常认同。</p>
+
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span id="progressText">第 1 / 15 题</span>
+        <span id="progressPercent">7%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div id="quizArea" class="card"></div>
+  </div>
+
+  <script>
+    const questions = [
+      "当我经历重要的情绪起伏时，我通常会首先想到某个具体的人。",
+      "即使没有说出口，我也会希望重要的人能够理解我当下的状态。",
+      "有些人即使不在身边，也会持续影响我看待生活的方式。",
+      "遇到难以处理的时刻时，我更倾向于自己消化，而不是把注意力放在某个人身上。",
+      "当情绪累积到一定程度时，我会想办法让它被表达出来。",
+      "面对强烈的感受时，我通常会先压住它，而不是立刻表现出来。",
+      "在重要关系里，我不太习惯把自己的真实想法说得很明确。",
+      "有些话如果一直停留在心里，会让我觉得不如说出来更好。",
+      "即使处在混乱或不确定中，我通常还是能慢慢找回自己的节奏。",
+      "当生活发生变化时，我常常需要很长时间才能重新确认自己要往哪里走。",
+      "别人对我的看法会明显影响我对自己的判断。",
+      "哪怕经历过失落或动摇，我依然相信自己最终能整理好内心。",
+      "在一段难熬的时期里，我更容易把注意力放在接下来还能做什么，而不是已经失去什么。",
+      "有时候我会长时间停留在某段记忆、某种情绪，难以抽离。",
+      "当我站在人生的岔路口时，比起退回熟悉的地方，我更愿意尝试继续往前走。"
+    ];
+
+    const reverse = [3, 5, 6, 9, 10, 13];
+
+    const dimensionMap = [
+      "rel","rel","rel","rel",
+      "exp","exp","exp","exp",
+      "self","self","self","self",
+      "world","world","world"
+    ];
+
+    const songs = [
+      {
+        key: "inside you",
+        rel: 6.8, exp: 6.2, self: 2.4, world: 2.0,
+        lyric: "Tell me what is inside you inside you now",
+        desc: "你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。"
+      },
+      {
+        key: "i still",
+        rel: 6.6, exp: 3.8, self: 4.2, world: 4.0,
+        lyric: "And I still believe in you and me",
+        desc: "你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。"
+      },
+      {
+        key: "the hardest",
+        rel: 6.9, exp: 6.5, self: 2.2, world: 1.9,
+        lyric: "I only want you to stay beside me",
+        desc: "你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。"
+      },
+      {
+        key: "us",
+        rel: 6.7, exp: 5.8, self: 3.5, world: 2.8,
+        lyric: "好きだと言ってしまえば 何かが変わるかな",
+        desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。"
+      },
+      {
+        key: "tell me",
+        rel: 6.8, exp: 5.0, self: 2.9, world: 2.2,
+        lyric: "So just tell me now",
+        desc: "你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。"
+      },
+      {
+        key: "december",
+        rel: 6.2, exp: 2.8, self: 4.4, world: 2.3,
+        lyric: "Don't need to say a word",
+        desc: "你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。"
+      },
+      {
+        key: "flare",
+        rel: 5.9, exp: 5.4, self: 5.8, world: 6.7,
+        lyric: "一番に光れ",
+        desc: "你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。"
+      },
+      {
+        key: "航海前夜",
+        rel: 5.2, exp: 4.6, self: 5.4, world: 6.2,
+        lyric: "航海前夜の空に歌う",
+        desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。"
+      },
+      {
+        key: "anytime anywhere",
+        rel: 6.0, exp: 3.7, self: 5.1, world: 5.8,
+        lyric: "Anytime anywhere I'll be there",
+        desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。"
+      },
+      {
+        key: "who i am",
+        rel: 4.5, exp: 5.5, self: 6.8, world: 6.0,
+        lyric: "Remember who you are",
+        desc: "你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。"
+      },
+      {
+        key: "waterproof",
+        rel: 3.9, exp: 6.3, self: 6.4, world: 5.7,
+        lyric: "I'm waterproof",
+        desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。"
+      },
+      {
+        key: "レッドネオン",
+        rel: 5.6, exp: 4.7, self: 5.0, world: 4.8,
+        lyric: "笑っていてよ",
+        desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。"
+      },
+      {
+        key: "ordinary days",
+        rel: 6.1, exp: 3.6, self: 6.0, world: 6.1,
+        lyric: "今が愛おしいんだ",
+        desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。"
+      },
+      {
+        key: "hey song",
+        rel: 5.1, exp: 5.0, self: 5.8, world: 5.9,
+        lyric: "Everything's gonna be alright",
+        desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。"
+      },
+      {
+        key: "hell club",
+        rel: 4.8, exp: 6.7, self: 2.3, world: 1.5,
+        lyric: "There's no love in your eye",
+        desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。"
+      },
+      {
+        key: "絆ノ奇跡",
+        rel: 6.4, exp: 5.9, self: 6.3, world: 6.9,
+        lyric: "絆が紡いで生まれた奇跡を",
+        desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。"
+      },
+      {
+        key: "seventh heaven",
+        rel: 5.7, exp: 6.6, self: 4.9, world: 4.9,
+        lyric: "Cause our heaven is here",
+        desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。"
+      },
+      {
+        key: "drown",
+        rel: 5.9, exp: 4.2, self: 2.6, world: 2.1,
+        lyric: "You're gonna make me drown",
+        desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。"
+      },
+      {
+        key: "rewrite",
+        rel: 5.5, exp: 5.4, self: 6.5, world: 6.4,
+        lyric: "We can try to rewrite now",
+        desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。"
+      }
+    ];
+
+    let answers = new Array(questions.length).fill(null);
+    let current = 0;
+
+    const quizArea = document.getElementById("quizArea");
+    const progressFill = document.getElementById("progressFill");
+    const progressText = document.getElementById("progressText");
+    const progressPercent = document.getElementById("progressPercent");
+
+    function updateProgress() {
+      const percent = Math.round(((current + 1) / questions.length) * 100);
+      progressText.textContent = `第 ${Math.min(current + 1, questions.length)} / ${questions.length} 题`;
+      progressPercent.textContent = `${percent}%`;
+      progressFill.style.width = `${percent}%`;
+    }
+
+    function renderQuestion() {
+      updateProgress();
+
+      const selected = answers[current];
+
+      quizArea.innerHTML = `
+        <div class="question-number">Question ${current + 1}</div>
+        <h2 class="question-text">${questions[current]}</h2>
+
+        <div class="scale-labels">
+          <span>1 = 非常不认同</span>
+          <span>7 = 非常认同</span>
+        </div>
+
+        <div class="scale" id="scaleBox">
+          ${[1,2,3,4,5,6,7].map(num => `
+            <button
+              class="${selected === num ? 'selected' : ''}"
+              onclick="selectAnswer(${num})"
+            >${num}</button>
+          `).join('')}
+        </div>
+
+        <div class="hint">请选择最符合你当下感觉的分数</div>
+
+        <div class="nav">
+          <button
+            class="btn-secondary ${current === 0 ? 'btn-disabled' : ''}"
+            onclick="goPrev()"
+            ${current === 0 ? 'disabled' : ''}
+          >上一题</button>
+
+          <button
+            class="btn-primary ${selected === null ? 'btn-disabled' : ''}"
+            onclick="goNext()"
+          >${current === questions.length - 1 ? '查看结果' : '下一题'}</button>
+        </div>
+      `;
+    }
+
+    function selectAnswer(value) {
+      answers[current] = value;
+      renderQuestion();
+    }
+
+    function goPrev() {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    }
+
+    function goNext() {
+      if (answers[current] === null) {
+        alert("请先选择一个分数");
+        return;
+      }
+
+      if (current < questions.length - 1) {
+        current++;
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const scores = { rel: 0, exp: 0, self: 0, world: 0 };
+      const counts = { rel: 0, exp: 0, self: 0, world: 0 };
+
+      answers.forEach((val, i) => {
+        let finalVal = val;
+        if (reverse.includes(i)) {
+          finalVal = 8 - finalVal;
+        }
+        const dim = dimensionMap[i];
+        scores[dim] += finalVal;
+        counts[dim] += 1;
+      });
+
+      for (const key in scores) {
+        scores[key] = scores[key] / counts[key];
+      }
+
+      let bestSong = null;
+      let minDistance = Infinity;
+
+      songs.forEach(song => {
+        const distance =
+          Math.pow(scores.rel - song.rel, 2) +
+          Math.pow(scores.exp - song.exp, 2) +
+          Math.pow(scores.self - song.self, 2) +
+          Math.pow(scores.world - song.world, 2);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          bestSong = song;
+        }
+      });
+
+      progressText.textContent = "测试完成";
+      progressPercent.textContent = "100%";
+      progressFill.style.width = "100%";
+
+      quizArea.innerHTML = `
+        <h2 class="result-title">测试结果</h2>
+        <div class="result-song">你最像《${bestSong.key}》</div>
+
+        <div class="result-lyric">“${bestSong.lyric}”</div>
+
+        <div class="result-desc">${bestSong.desc}</div>
+
+        <div class="scores-box">
+          <div class="score-item">
+            <div class="label">关系指向</div>
+            <div class="value">${scores.rel.toFixed(2)}</div>
+          </div>
+          <div class="score-item">
+            <div class="label">表达方式</div>
+            <div class="value">${scores.exp.toFixed(2)}</div>
+          </div>
+          <div class="score-item">
+            <div class="label">主体状态</div>
+            <div class="value">${scores.self.toFixed(2)}</div>
+          </div>
+          <div class="score-item">
+            <div class="label">世界取向</div>
+            <div class="value">${scores.world.toFixed(2)}</div>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-secondary" onclick="restartTest()">重新测试</button>
+          <button class="btn-primary" onclick="shareResult('${bestSong.key}')">复制结果文案</button>
+        </div>
+      `;
+    }
+
+    function restartTest() {
+      answers = new Array(questions.length).fill(null);
+      current = 0;
+      renderQuestion();
+    }
+
+    function shareResult(songName) {
+      const text = `我测出来最像 milet 的《${songName}》！你也来试试吧～`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("结果文案已复制");
+      }).catch(() => {
+        alert("复制失败，请手动复制。");
+      });
+    }
+
+    renderQuestion();
+  </script>
 </body>
 </html>
