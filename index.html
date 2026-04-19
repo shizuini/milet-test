@@ -520,7 +520,7 @@
     const songs = [
       {
         key: "inside you",
-        rel:6.6, exp:6.0, emo:6.2, self:2.6, time:2.3, vibe:5.2,
+        rel:6.2, exp:5.4, emo:5.5, self:3.6, time:3.4, vibe:4.8,
         lyric: "Tell me what is inside you inside you now/告诉我你的心里藏着什么",
         desc: "恭喜你，是出道曲！你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。就像这首歌唱出的，让我靠近你吧！",
         image: "images/6.jpg"
@@ -562,7 +562,7 @@
       },
       {
         key: "flare",
-        rel:5.6, exp:5.2, emo:5.0, self:6.2, time:6.9, vibe:2.1,
+        rel:5.2, exp:5.0, emo:4.8, self:5.8, time:6.4, vibe:2.4,
         lyric: "一番に光れ　笑われても/绽放最闪耀的光彩吧 即便招致旁人嘲笑/手を繋いでいるから/我也会牵着你的手",
         desc: "这是《国王排名》的ED。你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。相信你也一直能用你的flare，给世界带来温暖！",
         image: "images/1.jpg"
@@ -618,7 +618,7 @@
       },
       {
         key: "hell club",
-        rel:4.1, exp:6.8, emo:6.8, self:2.0, time:1.4, vibe:7.0,
+        rel:4.6, exp:6.1, emo:6.0, self:3.3, time:2.8, vibe:6.4,
         lyric: "Paradise in this/HELL CLUB/There's no love/While we're in this HELL CLUB",
         desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。",
         image: "images/14.jpg"
@@ -756,20 +756,25 @@
     }
 
     function getRankedSongs(scores) {
-      return songs
-        .map(song => {
-          const distance =
-            Math.pow(scores.rel - song.rel, 2) +
-            Math.pow(scores.exp - song.exp, 2) +
-            Math.pow(scores.emo - song.emo, 2) +
-            Math.pow(scores.self - song.self, 2) +
-            Math.pow(scores.time - song.time, 2) +
-            Math.pow(scores.vibe - song.vibe, 2);
+  return songs
+    .map(song => {
+      let distance =
+        Math.pow(scores.rel - song.rel, 2) +
+        Math.pow(scores.exp - song.exp, 2) +
+        Math.pow(scores.emo - song.emo, 2) +
+        Math.pow(scores.self - song.self, 2) +
+        Math.pow(scores.time - song.time, 2) +
+        Math.pow(scores.vibe - song.vibe, 2);
 
-          return { ...song, distance };
-        })
-        .sort((a, b) => a.distance - b.distance);
-    }
+      // 航海前夜降低概率
+      if (song.key === "航海前夜") {
+        distance += 1.2;
+      }
+
+      return { ...song, distance };
+    })
+    .sort((a, b) => a.distance - b.distance);
+}
 
     function showResult() {
       const scores = calculateScores();
