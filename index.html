@@ -94,7 +94,7 @@
     .question-text {
       font-size: 23px;
       line-height: 1.75;
-      margin: 0 0 26px;
+      margin: 0 0 20px;
       color: #173f56;
       font-weight: 700;
     }
@@ -107,6 +107,7 @@
       font-size: 13px;
       color: #537d98;
       font-weight: 600;
+      line-height: 1.6;
     }
 
     .scale {
@@ -209,22 +210,6 @@
       margin-bottom: 18px;
     }
 
-    .result-image-wrap {
-      display: flex;
-      justify-content: center;
-      margin: 8px 0 20px;
-    }
-
-    .result-image {
-      width: 220px;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 22px;
-      border: 3px solid rgba(255,255,255,0.8);
-      box-shadow: 0 16px 36px rgba(76, 153, 196, 0.22);
-      background: rgba(135, 206, 250, 0.15);
-    }
-
     .result-lyric {
       text-align: center;
       font-size: 16px;
@@ -249,40 +234,9 @@
       margin-bottom: 24px;
     }
 
-    .similar-box {
-      background: rgba(255,255,255,0.76);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 24px;
-      border: 1px solid rgba(135, 206, 250, 0.2);
-    }
-
-    .similar-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #24536e;
-      margin-bottom: 12px;
-    }
-
-    .similar-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .similar-item {
-      background: linear-gradient(135deg, rgba(135,206,250,0.18) 0%, rgba(93,183,240,0.12) 100%);
-      border-radius: 16px;
-      padding: 14px 12px;
-      text-align: center;
-      color: #275772;
-      border: 1px solid rgba(135, 206, 250, 0.22);
-      font-weight: 700;
-    }
-
     .scores-box {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
       margin-bottom: 24px;
     }
@@ -292,24 +246,9 @@
       border: 1px solid rgba(135,206,250,0.22);
       border-radius: 16px;
       padding: 14px;
+      text-align: center;
     }
-.feedback-text {
-  margin-top: 18px;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.8;
-  color: #5d8aa8;
-  font-weight: 400;
-}
 
-.feedback-text a {
-  color: #5d8aa8;
-  text-decoration: none;
-}
-
-.feedback-text a:hover {
-  text-decoration: underline;
-}
     .score-item .label {
       font-size: 13px;
       color: #5a829a;
@@ -323,9 +262,28 @@
       color: #21536d;
     }
 
+    .feedback-text {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+      color: #5d8aa8;
+      font-weight: 400;
+    }
+
+    .feedback-text a {
+      color: #5d8aa8;
+      text-decoration: none;
+    }
+
+    .feedback-text a:hover {
+      text-decoration: underline;
+    }
+
     .result-actions {
       display: flex;
       gap: 12px;
+      margin-top: 8px;
     }
 
     @media (max-width: 760px) {
@@ -335,10 +293,6 @@
 
       .scores-box {
         grid-template-columns: repeat(2, 1fr);
-      }
-
-      .similar-list {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -366,17 +320,12 @@
       }
 
       .scores-box {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
 
       .nav,
       .result-actions {
         flex-direction: column;
-      }
-
-      .result-image {
-        width: 190px;
-        height: 190px;
       }
     }
   </style>
@@ -386,13 +335,13 @@
     <h1 class="title">你是 milet 的哪一首歌？</h1>
     <p class="subtitle">
       请根据你更自然、更接近真实状态的感觉作答。<br>
-每题两端代表不同倾向，请选择最符合你的分数。
+      每题两端代表不同倾向，请选择最符合你的分数。
     </p>
 
     <div class="progress-wrap">
       <div class="progress-top">
         <span id="progressText">第 1 / 18 题</span>
-        <span id="progressPercent">7%</span>
+        <span id="progressPercent">6%</span>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
@@ -404,346 +353,369 @@
 
   <script>
     const questions = [
+      {
+        text: "当你经历一件情绪很强的事情时，你更容易：",
+        left: "1 = 回到自己内心慢慢消化",
+        right: "7 = 第一时间想到某个重要的人"
+      },
+      {
+        text: "对你来说，“重要的关系”更像：",
+        left: "1 = 人生的一部分，但不是全部",
+        right: "7 = 很多情绪都围绕它发生"
+      },
+      {
+        text: "当你内心有强烈情绪时，你更倾向：",
+        left: "1 = 不太说出来，自己消化",
+        right: "7 = 用语言或行动表达出来"
+      },
+      {
+        text: "如果要写一首歌，你更可能：",
+        left: "1 = 留很多空间，让人慢慢体会",
+        right: "7 = 直接把情绪说清楚"
+      },
+      {
+        text: "你日常的情绪状态更接近：",
+        left: "1 = 平稳、缓慢流动",
+        right: "7 = 丰富、容易被点燃"
+      },
+      {
+        text: "面对让你在意的人或事，你更容易：",
+        left: "1 = 维持冷静，不太波动",
+        right: "7 = 情绪明显被带动"
+      },
+      {
+        text: "当别人质疑你时，你更可能：",
+        left: "1 = 会动摇甚至怀疑自己",
+        right: "7 = 最终还是坚持自己的判断"
+      },
+      {
+        text: "在人际关系中，你更像：",
+        left: "1 = 容易被对方情绪影响",
+        right: "7 = 能保持自己的边界"
+      },
+      {
+        text: "当你想起过去的人或事时，你更容易：",
+        left: "1 = 停留在那种感觉里",
+        right: "7 = 把它当作已经过去的部分"
+      },
+      {
+        text: "面对未来的不确定，你更接近：",
+        left: "1 = 更想停在熟悉的状态",
+        right: "7 = 即使不确定也会往前走"
+      },
+      {
+        text: "你更容易被哪种画面吸引：",
+        left: "1 = 阳光、风、自然、开阔",
+        right: "7 = 夜晚、城市、霓虹、迷离"
+      },
+      {
+        text: "当你一个人发呆时，你更像在：",
+        left: "1 = 感受现实和当下",
+        right: "7 = 沉浸在某种氛围或情绪里"
+      },
+      {
+        text: "当你很在意一个人时，你更像：",
+        left: "1 = 想默默陪在对方身边",
+        right: "7 = 想确认对方是否也在意你"
+      },
+      {
+        text: "在关系里，你更偏向：",
+        left: "1 = 温柔、稳定、慢慢靠近",
+        right: "7 = 强烈、拉扯、情绪很重"
+      },
+      {
+        text: "你更喜欢哪种类型的故事或画面：",
+        left: "1 = 日常、真实、生活感",
+        right: "7 = 抽象、梦境、带一点不真实"
+      },
+      {
+        text: "当你沉浸在情绪中时，你更像：",
+        left: "1 = 仍然在现实中",
+        right: "7 = 有一点脱离现实的感觉"
+      },
+      {
+        text: "在夜晚独处时，你更容易：",
+        left: "1 = 放松、恢复能量",
+        right: "7 = 被情绪或想法占据"
+      },
+      {
+        text: "如果一段关系没有答案，你更可能：",
+        left: "1 = 接受它慢慢存在",
+        right: "7 = 想弄清楚它到底是什么"
+      }
+    ];
 
-/* ========= A 情感指向（Attachment） ========= */
-
-{
-  text: "当你经历一件情绪很强的事情时，你更容易：",
-  left: "1 = 回到自己内心慢慢消化",
-  right: "7 = 第一时间想到某个重要的人"
-},
-{
-  text: "对你来说，“重要的关系”更像：",
-  left: "1 = 人生的一部分，但不是全部",
-  right: "7 = 很多情绪都围绕它发生"
-},
-
-/* ========= B 表达强度（Expression） ========= */
-
-{
-  text: "当你内心有强烈情绪时，你更倾向：",
-  left: "1 = 不太说出来，自己消化",
-  right: "7 = 用语言或行动表达出来"
-},
-{
-  text: "如果要写一首歌，你更可能：",
-  left: "1 = 留很多空间，让人慢慢体会",
-  right: "7 = 直接把情绪说清楚"
-},
-
-/* ========= C 情绪能量（Arousal） ========= */
-
-{
-  text: "你日常的情绪状态更接近：",
-  left: "1 = 平稳、缓慢流动",
-  right: "7 = 丰富、容易被点燃"
-},
-{
-  text: "面对让你在意的人或事，你更容易：",
-  left: "1 = 维持冷静，不太波动",
-  right: "7 = 情绪明显被带动"
-},
-
-/* ========= D 自我稳定（Self Boundary） ========= */
-
-{
-  text: "当别人质疑你时，你更可能：",
-  left: "1 = 会动摇甚至怀疑自己",
-  right: "7 = 最终还是坚持自己的判断"
-},
-{
-  text: "在人际关系中，你更像：",
-  left: "1 = 容易被对方情绪影响",
-  right: "7 = 能保持自己的边界"
-},
-
-/* ========= E 时间取向（Temporal） ========= */
-
-{
-  text: "当你想起过去的人或事时，你更容易：",
-  left: "1 = 停留在那种感觉里",
-  right: "7 = 把它当作已经过去的部分"
-},
-{
-  text: "面对未来的不确定，你更接近：",
-  left: "1 = 更想停在熟悉的状态",
-  right: "7 = 即使不确定也会往前走"
-},
-
-/* ========= F 世界氛围（Atmosphere） ========= */
-
-{
-  text: "你更容易被哪种画面吸引：",
-  left: "1 = 阳光、风、自然、开阔",
-  right: "7 = 夜晚、城市、霓虹、迷离"
-},
-{
-  text: "当你一个人发呆时，你更像在：",
-  left: "1 = 感受现实和当下",
-  right: "7 = 沉浸在某种氛围或情绪里"
-},
-
-/* ========= G 连接方式（Intimacy） ========= */
-
-{
-  text: "当你很在意一个人时，你更像：",
-  left: "1 = 想默默陪在对方身边",
-  right: "7 = 想确认对方是否也在意你"
-},
-{
-  text: "在关系里，你更偏向：",
-  left: "1 = 温柔、稳定、慢慢靠近",
-  right: "7 = 强烈、拉扯、情绪很重"
-},
-
-/* ========= H 现实抽离（Reality Distance） ========= */
-
-{
-  text: "你更喜欢哪种类型的故事或画面：",
-  left: "1 = 日常、真实、生活感",
-  right: "7 = 抽象、梦境、带一点不真实"
-},
-{
-  text: "当你沉浸在情绪中时，你更像：",
-  left: "1 = 仍然在现实中",
-  right: "7 = 有一点脱离现实的感觉"
-},
-
-/* ========= 补充区分题（拉开细节差异） ========= */
-
-{
-  text: "在夜晚独处时，你更容易：",
-  left: "1 = 放松、恢复能量",
-  right: "7 = 被情绪或想法占据"
-},
-{
-  text: "如果一段关系没有答案，你更可能：",
-  left: "1 = 接受它慢慢存在",
-  right: "7 = 想弄清楚它到底是什么"
-}
-
-];
-
-    
     const dimensionMap = [
-"A","A",
-"B","B",
-"C","C",
-"D","D",
-"E","E",
-"F","F",
-"G","G",
-"H","H",
-"C","G"
-];
+      "A","A",
+      "B","B",
+      "C","C",
+      "D","D",
+      "E","E",
+      "F","F",
+      "G","G",
+      "H","H",
+      "C","G"
+    ];
 
-const dimensionCounts = {
-A:2,B:2,C:3,D:2,E:2,F:2,G:3,H:2
-};
-
+    const dimensionCounts = {
+      A: 2, B: 2, C: 3, D: 2, E: 2, F: 2, G: 3, H: 2
+    };
 
     const songs = [
       {
         key: "inside you",
-        A:6.3,B:6.0,C:6.2,D:2.8,E:2.5,F:5.5,G:6.5,H:5.2,
-        lyric: "Tell me what is inside you inside you now/告诉我你的心里藏着什么",
-        desc: "恭喜你，是出道曲！你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。就像这首歌唱出的，让我靠近你吧！",
-        image: "images/6.jpg"
+        A: 6.3, B: 6.0, C: 6.2, D: 2.8, E: 2.5, F: 5.5, G: 6.5, H: 5.2,
+        lyric: "Tell me what is inside you inside you now / 告诉我你的心里藏着什么",
+        desc: "恭喜你，是出道曲！你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。就像这首歌唱出的，让我靠近你吧！"
       },
       {
         key: "i still",
-        A:6.0,B:3.5,C:4.2,D:4.5,E:4.5,F:3.0,G:5.5,H:3.0,
-        lyric: "忘れないでね　ここにいるから/请你不要忘记 我会始终在这里",
-        desc: "这首歌是病休前的最后一首歌，米剪了短发，用这首歌告诉miles她一直都在。你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。",
-        image: "images/2.jpg"
+        A: 6.0, B: 3.5, C: 4.2, D: 4.5, E: 4.5, F: 3.0, G: 5.5, H: 3.0,
+        lyric: "忘れないでね ここにいるから / 请你不要忘记 我会始终在这里",
+        desc: "这首歌是病休前的最后一首歌，米剪了短发，用这首歌告诉 miles 她一直都在。你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。"
       },
       {
         key: "the hardest",
-        A:6.5,B:6.2,C:6.5,D:2.5,E:2.2,F:5.3,G:6.7,H:5.0,
-        lyric: "いつまでも 私だけ/无论何时都不要/夜のなか置いて行かないで/把我抛弃在黑夜里独自离开",
-        desc: "这是一首很悲伤的歌，在焦虑、痛苦的时候，这首歌总能替自己表达出情绪。你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。",
-        image: "images/9.jpg"
+        A: 6.5, B: 6.2, C: 6.5, D: 2.5, E: 2.2, F: 5.3, G: 6.7, H: 5.0,
+        lyric: "夜のなか置いて行かないで / 把我抛弃在黑夜里独自离开",
+        desc: "这是一首很悲伤的歌，在焦虑、痛苦的时候，这首歌总能替自己表达出情绪。你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。"
       },
       {
         key: "us",
-        A:6.0,B:5.5,C:5.5,D:3.5,E:3.0,F:4.5,G:6.0,H:4.0,
-        lyric: "好きだと言ってしまえば/如果把喜欢说出口/何かが変わるかな/会有什么变化呢",
-        desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。不多说了，让我们追求热烈的爱吧！",
-        image: "images/7.jpg"
+        A: 6.0, B: 5.5, C: 5.5, D: 3.5, E: 3.0, F: 4.5, G: 6.0, H: 4.0,
+        lyric: "好きだと言ってしまえば 何かが変わるかな / 如果把喜欢说出口，会有什么变化呢",
+        desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。不多说了，让我们追求热烈的爱吧！"
       },
       {
         key: "tell me",
-        A:6.0,B:4.5,C:5.0,D:3.0,E:2.5,F:4.5,G:6.0,H:4.8,
-        lyric: "Just tell me now/Why are you crying now?",
-        desc: "恭喜你，这是许多miles的入坑曲！你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。就像ED中西杜丽静静地看着王，你的温柔在无数个瞬间打动了许多人。",
-        image: "images/12.jpg"
+        A: 6.0, B: 4.5, C: 5.0, D: 3.0, E: 2.5, F: 4.5, G: 6.0, H: 4.8,
+        lyric: "Just tell me now / Why are you crying now?",
+        desc: "恭喜你，这是许多 miles 的入坑曲！你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。你的温柔在无数个瞬间打动了许多人。"
       },
       {
         key: "december",
-        A:5.8,B:2.8,C:3.8,D:5.1,E:2.2,F:2.2,G:4.8,H:2.5,
-        lyric: "Don't forget where you belong/Hold me like a babe again and sing a song",
-        desc: "这是milet写给母亲的一首歌。你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。当你迷茫时，不要忘了我永远陪在你身边。",
-        image: "images/14.jpg"
+        A: 5.8, B: 2.8, C: 3.8, D: 5.1, E: 2.2, F: 2.2, G: 4.8, H: 2.5,
+        lyric: "Don't forget where you belong",
+        desc: "这是 milet 写给母亲的一首歌。你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。当你迷茫时，不要忘了我永远陪在你身边。"
       },
       {
         key: "flare",
-        A:4.0,B:5.5,C:6.5,D:6.0,E:6.5,F:3.0,G:4.5,H:2.0,
-        lyric: "一番に光れ　笑われても/绽放最闪耀的光彩吧 即便招致旁人嘲笑/手を繋いでいるから/我也会牵着你的手",
-        desc: "这是《国王排名》的ED。你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。相信你也一直能用你的flare，给世界带来温暖！",
-        image: "images/1.jpg"
+        A: 4.0, B: 5.5, C: 6.5, D: 6.0, E: 6.5, F: 3.0, G: 4.5, H: 2.0,
+        lyric: "一番に光れ 笑われても / 绽放最闪耀的光彩吧，即便招致旁人嘲笑",
+        desc: "这是《国王排名》的 ED。你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。"
       },
       {
         key: "航海前夜",
-        A:4.5,B:4.5,C:5.0,D:5.5,E:6.5,F:3.5,G:4.0,H:3.5,
-        lyric: "こんな場所で独りきりでも/尽管独自一人在这样的地方/深い深い旅路の先が/哪怕深无止境的旅途前方",
-        desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。航海前夜，你准备好踏上那未知但注定激荡的旅途了吗？",
-        image: "images/13.jpg"
+        A: 4.5, B: 4.5, C: 5.0, D: 5.5, E: 6.5, F: 3.5, G: 4.0, H: 3.5,
+        lyric: "深い深い旅路の先が / 哪怕深无止境的旅途前方",
+        desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。航海前夜，你准备好踏上那未知但注定激荡的旅途了吗？"
       },
       {
         key: "anytime anywhere",
-        A:5.5,B:3.5,C:4.0,D:5.0,E:5.5,F:2.5,G:5.0,H:2.5,
-        lyric: "だから　あなたと　また巡り逢ったら/所以 若是有幸与你重新邂逅/もう離さない　今を選ぶんだろう/我将不再离去 留在相伴的此时",
-        desc: "无论何时、何地，我都会在你身边。你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。",
-        image: "images/15.jpg"
+        A: 5.5, B: 3.5, C: 4.0, D: 5.0, E: 5.5, F: 2.5, G: 5.0, H: 2.5,
+        lyric: "无论何时、何地，我都会在你身边。",
+        desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。"
       },
       {
         key: "who i am",
-        A:3.5,B:5.0,C:5.0,D:6.8,E:6.0,F:3.0,G:3.5,H:2.0,
-        lyric: "You're testing my patience/My life is nonfiction",
-        desc: "这是milet在初期就表明的态度。你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。",
-        image: "images/9.jpg"
+        A: 3.5, B: 5.0, C: 5.0, D: 6.8, E: 6.0, F: 3.0, G: 3.5, H: 2.0,
+        lyric: "You're testing my patience / My life is nonfiction",
+        desc: "这是 milet 在初期就表明的态度。你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。"
       },
       {
         key: "waterproof",
-        A:3.5,B:6.0,C:6.0,D:6.5,E:5.5,F:5.0,G:3.0,H:4.5,
-        lyric: "I'm waterproof 我无畏险阻 I'm dancing in the rain rain rain rain 在雨中纵情起舞",
-        desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。",
-        image: "images/8.jpg"
+        A: 3.5, B: 6.0, C: 6.0, D: 6.5, E: 5.5, F: 5.0, G: 3.0, H: 4.5,
+        lyric: "I'm waterproof / I'm dancing in the rain",
+        desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。"
       },
       {
         key: "レッドネオン",
-        A:5.0,B:4.5,C:5.0,D:5.0,E:4.5,F:6.0,G:4.5,H:5.0,
-        lyric: "コインランドリー/啊啊 坐在自助洗衣店里/コーラを飲み君を想うよ/喝着可乐 思念着你啊",
-        desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。",
-        image: "images/12.jpg"
+        A: 5.0, B: 4.5, C: 5.0, D: 5.0, E: 4.5, F: 6.0, G: 4.5, H: 5.0,
+        lyric: "コーラを飲み君を想うよ / 喝着可乐，思念着你啊",
+        desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。"
       },
       {
         key: "ordinary days",
-        A:5.5,B:3.0,C:3.5,D:6.0,E:6.0,F:2.0,G:5.5,H:1.5,
-        lyric: "ずっと/一直以来/君の隣で笑うより　君に笑ってほしいのさ/比起在你身边笑着 更希望让你笑着啊",
-        desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。",
-        image: "images/16.jpg"
+        A: 5.5, B: 3.0, C: 3.5, D: 6.0, E: 6.0, F: 2.0, G: 5.5, H: 1.5,
+        lyric: "君に笑ってほしいのさ / 更希望让你笑着啊",
+        desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。"
       },
       {
         key: "hey song",
-        A:4.5,B:4.5,C:4.5,D:5.5,E:5.5,F:4.0,G:4.5,H:3.0,
-        lyric: "I like you just the way you are 1, 2, 3 Your smile is the best thing in_the world",
-        desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。",
-        image: "images/14.jpg"
+        A: 4.5, B: 4.5, C: 4.5, D: 5.5, E: 5.5, F: 4.0, G: 4.5, H: 3.0,
+        lyric: "I like you just the way you are",
+        desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。"
       },
       {
         key: "hell club",
-        A:4.0,B:6.5,C:6.5,D:2.5,E:2.0,F:7.0,G:4.5,H:6.5,
-        lyric: "Paradise in this/HELL CLUB/There's no love/While we're in this HELL CLUB",
-        desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。",
-        image: "images/14.jpg"
+        A: 4.0, B: 6.5, C: 6.5, D: 2.5, E: 2.0, F: 7.0, G: 4.5, H: 6.5,
+        lyric: "Paradise in this HELL CLUB",
+        desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。"
       },
       {
         key: "絆ノ奇跡",
-        A:6.0,B:5.5,C:6.0,D:6.0,E:6.5,F:3.0,G:6.0,H:3.0,
-        lyric: "解き放たれた心に宿した火よ/栖身于 我现已解放的内心的烈火/舞い上げ、 まとえ 今 夜明けの向こう側へ/翱翔天际 整装待发 如今前往黎明的彼端",
-        desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。",
-        image: "images/3.jpg"
+        A: 6.0, B: 5.5, C: 6.0, D: 6.0, E: 6.5, F: 3.0, G: 6.0, H: 3.0,
+        lyric: "解き放たれた心に宿した火よ",
+        desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。"
       },
       {
         key: "seventh heaven",
-        A:5.0,B:6.5,C:6.5,D:4.5,E:5.0,F:6.5,G:5.0,H:6.0,
-        lyric: "Kiss me and come closer, come closer/Cause our heaven is here/M-i-l-e-t I’m with ya",
-        desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。",
-        image: "images/10.jpg"
+        A: 5.0, B: 6.5, C: 6.5, D: 4.5, E: 5.0, F: 6.5, G: 5.0, H: 6.0,
+        lyric: "Cause our heaven is here",
+        desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。"
       },
       {
         key: "drown",
-        A:5.5,B:4.0,C:5.5,D:2.5,E:2.5,F:5.0,G:5.5,H:5.5,
-        lyric: "You're gonna make me go/You're gonna make me drown/No, I don't want it/But I know no one's there",
-        desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。",
-        image: "images/11.jpg"
+        A: 5.5, B: 4.0, C: 5.5, D: 2.5, E: 2.5, F: 5.0, G: 5.5, H: 5.5,
+        lyric: "You're gonna make me drown",
+        desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。"
       },
       {
         key: "rewrite",
-        A:5.0,B:5.0,C:5.0,D:6.5,E:6.5,F:4.0,G:5.0,H:4.5,
-        lyric: "We don't need something so special/We already know we're special/We are forever",
-        desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。",
-        image: "images/7.jpg"
+        A: 5.0, B: 5.0, C: 5.0, D: 6.5, E: 6.5, F: 4.0, G: 5.0, H: 4.5,
+        lyric: "We already know we're special",
+        desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。"
       },
       {
         key: "hanataba",
-        A:6.0,B:3.5,C:4.5,D:5.2,E:5.5,F:2.5,G:5.0,H:2.0,
-        lyric: "強くなれないけど/虽然我仍然弱小/あなたといるから 怖くないよ/但只要与你在一起 我便不再害怕",
-        desc: "你很容易被温柔而笨拙的爱打动。你未必总是强大，但你会因为某个人真实的靠近，而慢慢长出继续走下去的勇气。",
-        image: "images/5.jpg"
-}
+        A: 6.0, B: 3.5, C: 4.5, D: 5.2, E: 5.5, F: 2.5, G: 5.0, H: 2.0,
+        lyric: "あなたといるから 怖くないよ / 只要与你在一起，我便不再害怕",
+        desc: "你很容易被温柔而笨拙的爱打动。你未必总是强大，但你会因为某个人真实的靠近，而慢慢长出继续走下去的勇气。"
+      }
     ];
 
-let answers = new Array(questions.length).fill(null);
-let current = 0;
+    let answers = new Array(questions.length).fill(null);
+    let current = 0;
 
-function render(){
-  const q = questions[current];
-  document.getElementById("quizArea").innerHTML = `
-    <div class="question-text">${q.text}</div>
-    <div>${q.left} ← → ${q.right}</div>
-    <div class="scale">
-      ${[1,2,3,4,5,6,7].map(n=>`
-        <button class="${answers[current]==n?'selected':''}"
-        onclick="select(${n})">${n}</button>`).join("")}
-    </div>
-  `;
-}
+    function updateProgress() {
+      const shownIndex = Math.min(current + 1, questions.length);
+      const percent = Math.round((shownIndex / questions.length) * 100);
+      document.getElementById("progressText").textContent = `第 ${shownIndex} / ${questions.length} 题`;
+      document.getElementById("progressPercent").textContent = `${percent}%`;
+      document.getElementById("progressFill").style.width = `${percent}%`;
+    }
 
-function select(n){
-  answers[current]=n;
-  if(current<questions.length-1){
-    current++;
+    function render() {
+      updateProgress();
+
+      const q = questions[current];
+      document.getElementById("quizArea").innerHTML = `
+        <div class="question-number">Question ${current + 1}</div>
+        <div class="question-text">${q.text}</div>
+        <div class="scale-labels">
+          <span>${q.left}</span>
+          <span>${q.right}</span>
+        </div>
+        <div class="scale">
+          ${[1,2,3,4,5,6,7].map(n => `
+            <button class="${answers[current] === n ? 'selected' : ''}" onclick="select(${n})">${n}</button>
+          `).join("")}
+        </div>
+        <div class="hint">选择后将自动进入下一题</div>
+      `;
+    }
+
+    function select(n) {
+      answers[current] = n;
+      if (current < questions.length - 1) {
+        current++;
+        render();
+      } else {
+        showResult();
+      }
+    }
+
+    function getScores() {
+      const scores = { A:0, B:0, C:0, D:0, E:0, F:0, G:0, H:0 };
+
+      answers.forEach((value, index) => {
+        scores[dimensionMap[index]] += value;
+      });
+
+      for (const key in scores) {
+        scores[key] = +(scores[key] / dimensionCounts[key]).toFixed(1);
+      }
+
+      return scores;
+    }
+
+    function getBestSong(scores) {
+      return songs
+        .map(song => {
+          const distance =
+            Math.pow(scores.A - song.A, 2) +
+            Math.pow(scores.B - song.B, 2) +
+            Math.pow(scores.C - song.C, 2) +
+            Math.pow(scores.D - song.D, 2) +
+            Math.pow(scores.E - song.E, 2) +
+            Math.pow(scores.F - song.F, 2) +
+            Math.pow(scores.G - song.G, 2) +
+            Math.pow(scores.H - song.H, 2);
+
+          return { ...song, distance };
+        })
+        .sort((a, b) => a.distance - b.distance)[0];
+    }
+
+    function renderScores(scores) {
+      return `
+        <div class="scores-box">
+          <div class="score-item"><div class="label">A 情感指向</div><div class="value">${scores.A}</div></div>
+          <div class="score-item"><div class="label">B 表达强度</div><div class="value">${scores.B}</div></div>
+          <div class="score-item"><div class="label">C 情绪能量</div><div class="value">${scores.C}</div></div>
+          <div class="score-item"><div class="label">D 自我稳定</div><div class="value">${scores.D}</div></div>
+          <div class="score-item"><div class="label">E 时间取向</div><div class="value">${scores.E}</div></div>
+          <div class="score-item"><div class="label">F 世界氛围</div><div class="value">${scores.F}</div></div>
+          <div class="score-item"><div class="label">G 连接方式</div><div class="value">${scores.G}</div></div>
+          <div class="score-item"><div class="label">H 现实抽离</div><div class="value">${scores.H}</div></div>
+        </div>
+      `;
+    }
+
+    function showResult() {
+      const scores = getScores();
+      const best = getBestSong(scores);
+
+      document.getElementById("progressText").textContent = "测试完成";
+      document.getElementById("progressPercent").textContent = "100%";
+      document.getElementById("progressFill").style.width = "100%";
+
+      document.getElementById("quizArea").innerHTML = `
+        <div class="result-title">你最像</div>
+        <div class="result-song">《${best.key}》</div>
+        <div class="result-lyric">${best.lyric}</div>
+        <div class="result-desc">${best.desc}</div>
+        ${renderScores(scores)}
+        <div class="result-actions">
+          <button class="btn-secondary" onclick="restartTest()">重新测试</button>
+          <button class="btn-primary" onclick="shareResult('${best.key.replace(/'/g, "\\'")}')">复制结果文案</button>
+        </div>
+        <div class="feedback-text">
+          您对这个测试有任何建议，都可以邮件联系
+          <a href="mailto:imnotshizu3@gmail.com">imnotshizu3@gmail.com</a>，
+          也欢迎分享测试结果，方便香蕉蕉调整参数等设计~
+        </div>
+      `;
+    }
+
+    function restartTest() {
+      answers = new Array(questions.length).fill(null);
+      current = 0;
+      render();
+    }
+
+    function shareResult(songName) {
+      const text = `我测出来最像 milet 的《${songName}》！你也来试试吧～`;
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("结果文案已复制");
+        })
+        .catch(() => {
+          alert("复制失败，请手动复制。");
+        });
+    }
+
     render();
-  }else{
-    showResult();
-  }
-}
-
-function showResult(){
-  let scores={A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
-  answers.forEach((v,i)=>{
-    scores[dimensionMap[i]]+=v;
-  });
-  for(let k in scores){
-    scores[k]/=dimensionCounts[k];
-  }
-
-  let best=songs.map(s=>{
-    let d=
-    Math.pow(scores.A-s.A,2)+
-    Math.pow(scores.B-s.B,2)+
-    Math.pow(scores.C-s.C,2)+
-    Math.pow(scores.D-s.D,2)+
-    Math.pow(scores.E-s.E,2)+
-    Math.pow(scores.F-s.F,2)+
-    Math.pow(scores.G-s.G,2)+
-    Math.pow(scores.H-s.H,2);
-    return {...s,d};
-  }).sort((a,b)=>a.d-b.d)[0];
-
-  document.getElementById("quizArea").innerHTML = `
-  <h2>你最像《${best.key}》</h2>
-  <p>${best.desc}</p>
-  <div class="feedback-text">
-    您对这个测试有任何建议，都可以邮件联系imnotshizu3@gmail.com，也欢迎分享测试结果，方便香蕉蕉调整参数等设计~
-  </div>
-  `;
-}
-
-render();
-
-</script>
+  </script>
 </body>
 </html>
