@@ -94,7 +94,7 @@
     .question-text {
       font-size: 23px;
       line-height: 1.75;
-      margin: 0 0 20px;
+      margin: 0 0 26px;
       color: #173f56;
       font-weight: 700;
     }
@@ -191,8 +191,9 @@
 
     .btn-disabled {
       opacity: 0.45;
-      cursor: not-allowed;
+      cursor: not-allowed !important;
       box-shadow: none !important;
+      transform: none !important;
     }
 
     .result-title {
@@ -208,6 +209,22 @@
       font-weight: 900;
       color: #2b6d93;
       margin-bottom: 18px;
+    }
+
+    .result-image-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 8px 0 20px;
+    }
+
+    .result-image {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 22px;
+      border: 3px solid rgba(255,255,255,0.8);
+      box-shadow: 0 16px 36px rgba(76, 153, 196, 0.22);
+      background: rgba(135, 206, 250, 0.15);
     }
 
     .result-lyric {
@@ -232,6 +249,38 @@
       border-radius: 18px;
       padding: 18px 18px;
       margin-bottom: 24px;
+    }
+
+    .similar-box {
+      background: rgba(255,255,255,0.76);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(135, 206, 250, 0.2);
+    }
+
+    .similar-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #24536e;
+      margin-bottom: 12px;
+    }
+
+    .similar-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .similar-item {
+      background: linear-gradient(135deg, rgba(135,206,250,0.18) 0%, rgba(93,183,240,0.12) 100%);
+      border-radius: 16px;
+      padding: 14px 12px;
+      text-align: center;
+      color: #275772;
+      border: 1px solid rgba(135, 206, 250, 0.22);
+      font-weight: 700;
+      font-size: 15px;
     }
 
     .scores-box {
@@ -294,6 +343,10 @@
       .scores-box {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .similar-list {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
@@ -320,12 +373,17 @@
       }
 
       .scores-box {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
       }
 
       .nav,
       .result-actions {
         flex-direction: column;
+      }
+
+      .result-image {
+        width: 190px;
+        height: 190px;
       }
     }
   </style>
@@ -458,129 +516,149 @@
     ];
 
     const dimensionCounts = {
-      A: 2, B: 2, C: 3, D: 2, E: 2, F: 2, G: 3, H: 2
+      A:2, B:2, C:3, D:2, E:2, F:2, G:3, H:2
     };
 
     const songs = [
       {
         key: "inside you",
-        A: 6.3, B: 6.0, C: 6.2, D: 2.8, E: 2.5, F: 5.5, G: 6.5, H: 5.2,
+        A:6.3,B:6.0,C:6.2,D:2.8,E:2.5,F:5.5,G:6.5,H:5.2,
         lyric: "Tell me what is inside you inside you now / 告诉我你的心里藏着什么",
-        desc: "恭喜你，是出道曲！你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。就像这首歌唱出的，让我靠近你吧！"
+        desc: "恭喜你，是出道曲！你习惯把情感强烈地投向某个人，想靠近、想确认、想听见回应。你不是不清醒，只是太难轻易抽离。就像这首歌唱出的，让我靠近你吧！",
+        image: "images/6.jpg"
       },
       {
         key: "i still",
-        A: 6.0, B: 3.5, C: 4.2, D: 4.5, E: 4.5, F: 3.0, G: 5.5, H: 3.0,
+        A:6.0,B:3.5,C:4.2,D:4.5,E:4.5,F:3.0,G:5.5,H:3.0,
         lyric: "忘れないでね ここにいるから / 请你不要忘记 我会始终在这里",
-        desc: "这首歌是病休前的最后一首歌，米剪了短发，用这首歌告诉 miles 她一直都在。你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。"
+        desc: "这首歌是病休前的最后一首歌，米剪了短发，用这首歌告诉 miles 她一直都在。你对情感很认真，即使告别发生过，也仍愿意相信联结本身。你柔软，但不是轻易放弃的人。",
+        image: "images/2.jpg"
       },
       {
         key: "the hardest",
-        A: 6.5, B: 6.2, C: 6.5, D: 2.5, E: 2.2, F: 5.3, G: 6.7, H: 5.0,
+        A:6.5,B:6.2,C:6.5,D:2.5,E:2.2,F:5.3,G:6.7,H:5.0,
         lyric: "夜のなか置いて行かないで / 把我抛弃在黑夜里独自离开",
-        desc: "这是一首很悲伤的歌，在焦虑、痛苦的时候，这首歌总能替自己表达出情绪。你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。"
+        desc: "这是一首很悲伤的歌，在焦虑、痛苦的时候，这首歌总能替自己表达出情绪。你在关系里非常真，也非常痛。你不擅长假装无所谓，越重要的人，越容易让你失去防备。",
+        image: "images/9.jpg"
       },
       {
         key: "us",
-        A: 6.0, B: 5.5, C: 5.5, D: 3.5, E: 3.0, F: 4.5, G: 6.0, H: 4.0,
+        A:6.0,B:5.5,C:5.5,D:3.5,E:3.0,F:4.5,G:6.0,H:4.0,
         lyric: "好きだと言ってしまえば 何かが変わるかな / 如果把喜欢说出口，会有什么变化呢",
-        desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。不多说了，让我们追求热烈的爱吧！"
+        desc: "你站在感情的边界线上，明知说出口会改变一切，却还是想更靠近一步。你在克制和越界之间来回。不多说了，让我们追求热烈的爱吧！",
+        image: "images/7.jpg"
       },
       {
         key: "tell me",
-        A: 6.0, B: 4.5, C: 5.0, D: 3.0, E: 2.5, F: 4.5, G: 6.0, H: 4.8,
+        A:6.0,B:4.5,C:5.0,D:3.0,E:2.5,F:4.5,G:6.0,H:4.8,
         lyric: "Just tell me now / Why are you crying now?",
-        desc: "恭喜你，这是许多 miles 的入坑曲！你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。你的温柔在无数个瞬间打动了许多人。"
+        desc: "恭喜你，这是许多 miles 的入坑曲！你容易把情绪留在回声里。你不是没有话，而是很多话都变成了等待、梦境和迟来的追问。你的温柔在无数个瞬间打动了许多人。",
+        image: "images/12.jpg"
       },
       {
         key: "december",
-        A: 5.8, B: 2.8, C: 3.8, D: 5.1, E: 2.2, F: 2.2, G: 4.8, H: 2.5,
+        A:5.8,B:2.8,C:3.8,D:5.1,E:2.2,F:2.2,G:4.8,H:2.5,
         lyric: "Don't forget where you belong",
-        desc: "这是 milet 写给母亲的一首歌。你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。当你迷茫时，不要忘了我永远陪在你身边。"
+        desc: "这是 milet 写给母亲的一首歌。你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。当你迷茫时，不要忘了我永远陪在你身边。",
+        image: "images/14.jpg"
       },
       {
         key: "flare",
-        A: 4.0, B: 5.5, C: 6.5, D: 6.0, E: 6.5, F: 3.0, G: 4.5, H: 2.0,
+        A:4.0,B:5.5,C:6.5,D:6.0,E:6.5,F:3.0,G:4.5,H:2.0,
         lyric: "一番に光れ 笑われても / 绽放最闪耀的光彩吧，即便招致旁人嘲笑",
-        desc: "这是《国王排名》的 ED。你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。"
+        desc: "这是《国王排名》的 ED。你有一种向前发光的力量。你不是没有犹豫，而是就算害怕，也还是会选择继续走下去。",
+        image: "images/1.jpg"
       },
       {
         key: "航海前夜",
-        A: 4.5, B: 4.5, C: 5.0, D: 5.5, E: 6.5, F: 3.5, G: 4.0, H: 3.5,
+        A:4.5,B:4.5,C:5.0,D:5.5,E:6.5,F:3.5,G:4.0,H:3.5,
         lyric: "深い深い旅路の先が / 哪怕深无止境的旅途前方",
-        desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。航海前夜，你准备好踏上那未知但注定激荡的旅途了吗？"
+        desc: "你常常站在出发前的边界上：孤独、清醒、还没完全知道答案，但已经决定继续前行。航海前夜，你准备好踏上那未知但注定激荡的旅途了吗？",
+        image: "images/13.jpg"
       },
       {
         key: "anytime anywhere",
-        A: 5.5, B: 3.5, C: 4.0, D: 5.0, E: 5.5, F: 2.5, G: 5.0, H: 2.5,
+        A:5.5,B:3.5,C:4.0,D:5.0,E:5.5,F:2.5,G:5.0,H:2.5,
         lyric: "无论何时、何地，我都会在你身边。",
-        desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。"
+        desc: "你会记得失去，也会继续生活。你对重要的人始终保留温柔，哪怕不再紧握，也不轻易忘记。",
+        image: "images/15.jpg"
       },
       {
         key: "who i am",
-        A: 3.5, B: 5.0, C: 5.0, D: 6.8, E: 6.0, F: 3.0, G: 3.5, H: 2.0,
+        A:3.5,B:5.0,C:5.0,D:6.8,E:6.0,F:3.0,G:3.5,H:2.0,
         lyric: "You're testing my patience / My life is nonfiction",
-        desc: "这是 milet 在初期就表明的态度。你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。"
+        desc: "这是 milet 在初期就表明的态度。你最强的地方，是即使被拉扯、被质疑，也还是会慢慢确认自己是谁。你会受伤，但不会轻易被定义。",
+        image: "images/9.jpg"
       },
       {
         key: "waterproof",
-        A: 3.5, B: 6.0, C: 6.0, D: 6.5, E: 5.5, F: 5.0, G: 3.0, H: 4.5,
+        A:3.5,B:6.0,C:6.0,D:6.5,E:5.5,F:5.0,G:3.0,H:4.5,
         lyric: "I'm waterproof / I'm dancing in the rain",
-        desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。"
+        desc: "你有很强的自我保护和反击感。你不喜欢被轻易击穿，更擅长在风雨里把自己撑住。",
+        image: "images/8.jpg"
       },
       {
         key: "レッドネオン",
-        A: 5.0, B: 4.5, C: 5.0, D: 5.0, E: 4.5, F: 6.0, G: 4.5, H: 5.0,
+        A:5.0,B:4.5,C:5.0,D:5.0,E:4.5,F:6.0,G:4.5,H:5.0,
         lyric: "コーラを飲み君を想うよ / 喝着可乐，思念着你啊",
-        desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。"
+        desc: "你很重视陪伴，但不是沉重的那种。你更像城市夜里的一点光，松弛、真诚、和熟悉的人一起往前走。",
+        image: "images/12.jpg"
       },
       {
         key: "ordinary days",
-        A: 5.5, B: 3.0, C: 3.5, D: 6.0, E: 6.0, F: 2.0, G: 5.5, H: 1.5,
+        A:5.5,B:3.0,C:3.5,D:6.0,E:6.0,F:2.0,G:5.5,H:1.5,
         lyric: "君に笑ってほしいのさ / 更希望让你笑着啊",
-        desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。"
+        desc: "你珍惜日常，也珍惜身边的人。你未必外放，但很有持续照亮别人生活的能力。",
+        image: "images/16.jpg"
       },
       {
         key: "hey song",
-        A: 4.5, B: 4.5, C: 4.5, D: 5.5, E: 5.5, F: 4.0, G: 4.5, H: 3.0,
+        A:4.5,B:4.5,C:4.5,D:5.5,E:5.5,F:4.0,G:4.5,H:3.0,
         lyric: "I like you just the way you are",
-        desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。"
+        desc: "你愿意承认孤独，也愿意继续笑着往前。你不是完美主义者，你更像会在混乱里给人一点轻快的人。",
+        image: "images/14.jpg"
       },
       {
         key: "hell club",
-        A: 4.0, B: 6.5, C: 6.5, D: 2.5, E: 2.0, F: 7.0, G: 4.5, H: 6.5,
+        A:4.0,B:6.5,C:6.5,D:2.5,E:2.0,F:7.0,G:4.5,H:6.5,
         lyric: "Paradise in this HELL CLUB",
-        desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。"
+        desc: "你有很强的夜晚气质：危险、沉迷、拉扯、清醒与失控并存。你不是温顺型的人。",
+        image: "images/14.jpg"
       },
       {
         key: "絆ノ奇跡",
-        A: 6.0, B: 5.5, C: 6.0, D: 6.0, E: 6.5, F: 3.0, G: 6.0, H: 3.0,
+        A:6.0,B:5.5,C:6.0,D:6.0,E:6.5,F:3.0,G:6.0,H:3.0,
         lyric: "解き放たれた心に宿した火よ",
-        desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。"
+        desc: "你相信人与人之间的联结真的能把人带到更远的地方。你不是只为自己而活的人。",
+        image: "images/3.jpg"
       },
       {
         key: "seventh heaven",
-        A: 5.0, B: 6.5, C: 6.5, D: 4.5, E: 5.0, F: 6.5, G: 5.0, H: 6.0,
+        A:5.0,B:6.5,C:6.5,D:4.5,E:5.0,F:6.5,G:5.0,H:6.0,
         lyric: "Cause our heaven is here",
-        desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。"
+        desc: "你很吃氛围、节奏和当下共振。你要的不是规矩，而是一种“此刻就够了”的炽热感。",
+        image: "images/10.jpg"
       },
       {
         key: "drown",
-        A: 5.5, B: 4.0, C: 5.5, D: 2.5, E: 2.5, F: 5.0, G: 5.5, H: 5.5,
+        A:5.5,B:4.0,C:5.5,D:2.5,E:2.5,F:5.0,G:5.5,H:5.5,
         lyric: "You're gonna make me drown",
-        desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。"
+        desc: "你常常处在夹缝和悬置之中，像一边下沉一边还想停留。你的情绪不是爆裂的，而是深水式的。",
+        image: "images/11.jpg"
       },
       {
         key: "rewrite",
-        A: 5.0, B: 5.0, C: 5.0, D: 6.5, E: 6.5, F: 4.0, G: 5.0, H: 4.5,
+        A:5.0,B:5.0,C:5.0,D:6.5,E:6.5,F:4.0,G:5.0,H:4.5,
         lyric: "We already know we're special",
-        desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。"
+        desc: "你不太愿意接受既定剧本。就算现实不完美，你也会想和重要的人一起把它改写成新的版本。",
+        image: "images/7.jpg"
       },
       {
         key: "hanataba",
-        A: 6.0, B: 3.5, C: 4.5, D: 5.2, E: 5.5, F: 2.5, G: 5.0, H: 2.0,
+        A:6.0,B:3.5,C:4.5,D:5.2,E:5.5,F:2.5,G:5.0,H:2.0,
         lyric: "あなたといるから 怖くないよ / 只要与你在一起，我便不再害怕",
-        desc: "你很容易被温柔而笨拙的爱打动。你未必总是强大，但你会因为某个人真实的靠近，而慢慢长出继续走下去的勇气。"
+        desc: "你很容易被温柔而笨拙的爱打动。你未必总是强大，但你会因为某个人真实的靠近，而慢慢长出继续走下去的勇气。",
+        image: "images/5.jpg"
       }
     ];
 
@@ -588,7 +666,7 @@
     let current = 0;
 
     function updateProgress() {
-      const shownIndex = Math.min(current + 1, questions.length);
+      const shownIndex = current + 1;
       const percent = Math.round((shownIndex / questions.length) * 100);
       document.getElementById("progressText").textContent = `第 ${shownIndex} / ${questions.length} 题`;
       document.getElementById("progressPercent").textContent = `${percent}%`;
@@ -599,29 +677,67 @@
       updateProgress();
 
       const q = questions[current];
+      const isFirst = current === 0;
+      const isLast = current === questions.length - 1;
+      const hasAnswer = answers[current] !== null;
+
       document.getElementById("quizArea").innerHTML = `
         <div class="question-number">Question ${current + 1}</div>
         <div class="question-text">${q.text}</div>
+
         <div class="scale-labels">
           <span>${q.left}</span>
           <span>${q.right}</span>
         </div>
+
         <div class="scale">
           ${[1,2,3,4,5,6,7].map(n => `
-            <button class="${answers[current] === n ? 'selected' : ''}" onclick="select(${n})">${n}</button>
+            <button
+              class="${answers[current] === n ? 'selected' : ''}"
+              onclick="select(${n})"
+            >${n}</button>
           `).join("")}
         </div>
-        <div class="hint">选择后将自动进入下一题</div>
+
+        <div class="hint">可以先选择，再点下一题</div>
+
+        <div class="nav">
+          <button
+            class="btn-secondary ${isFirst ? 'btn-disabled' : ''}"
+            onclick="prevQuestion()"
+            ${isFirst ? 'disabled' : ''}
+          >
+            上一题
+          </button>
+
+          <button
+            class="btn-primary ${!hasAnswer ? 'btn-disabled' : ''}"
+            onclick="${isLast ? 'showResult()' : 'nextQuestion()'}"
+            ${!hasAnswer ? 'disabled' : ''}
+          >
+            ${isLast ? '查看结果' : '下一题'}
+          </button>
+        </div>
       `;
     }
 
     function select(n) {
       answers[current] = n;
+      render();
+    }
+
+    function prevQuestion() {
+      if (current > 0) {
+        current--;
+        render();
+      }
+    }
+
+    function nextQuestion() {
+      if (answers[current] === null) return;
       if (current < questions.length - 1) {
         current++;
         render();
-      } else {
-        showResult();
       }
     }
 
@@ -639,7 +755,7 @@
       return scores;
     }
 
-    function getBestSong(scores) {
+    function getSortedSongs(scores) {
       return songs
         .map(song => {
           const distance =
@@ -654,7 +770,7 @@
 
           return { ...song, distance };
         })
-        .sort((a, b) => a.distance - b.distance)[0];
+        .sort((a, b) => a.distance - b.distance);
     }
 
     function renderScores(scores) {
@@ -672,9 +788,26 @@
       `;
     }
 
+    function renderSimilarSongs(sortedSongs) {
+      const similar = sortedSongs.slice(1, 4);
+      return `
+        <div class="similar-box">
+          <div class="similar-title">你也很像这些歌</div>
+          <div class="similar-list">
+            ${similar.map(song => `
+              <div class="similar-item">《${song.key}》</div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
     function showResult() {
+      if (answers.includes(null)) return;
+
       const scores = getScores();
-      const best = getBestSong(scores);
+      const sortedSongs = getSortedSongs(scores);
+      const best = sortedSongs[0];
 
       document.getElementById("progressText").textContent = "测试完成";
       document.getElementById("progressPercent").textContent = "100%";
@@ -683,13 +816,22 @@
       document.getElementById("quizArea").innerHTML = `
         <div class="result-title">你最像</div>
         <div class="result-song">《${best.key}》</div>
+
+        <div class="result-image-wrap">
+          <img class="result-image" src="${best.image}" alt="${best.key}">
+        </div>
+
         <div class="result-lyric">${best.lyric}</div>
         <div class="result-desc">${best.desc}</div>
+
+        ${renderSimilarSongs(sortedSongs)}
         ${renderScores(scores)}
+
         <div class="result-actions">
           <button class="btn-secondary" onclick="restartTest()">重新测试</button>
           <button class="btn-primary" onclick="shareResult('${best.key.replace(/'/g, "\\'")}')">复制结果文案</button>
         </div>
+
         <div class="feedback-text">
           您对这个测试有任何建议，都可以邮件联系
           <a href="mailto:imnotshizu3@gmail.com">imnotshizu3@gmail.com</a>，
@@ -701,20 +843,18 @@
     function restartTest() {
       answers = new Array(questions.length).fill(null);
       current = 0;
+      updateProgress();
       render();
     }
 
     function shareResult(songName) {
       const text = `我测出来最像 milet 的《${songName}》！你也来试试吧～`;
       navigator.clipboard.writeText(text)
-        .then(() => {
-          alert("结果文案已复制");
-        })
-        .catch(() => {
-          alert("复制失败，请手动复制。");
-        });
+        .then(() => alert("结果文案已复制"))
+        .catch(() => alert("复制失败，请手动复制。"));
     }
 
+    updateProgress();
     render();
   </script>
 </body>
