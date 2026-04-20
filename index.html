@@ -747,22 +747,3 @@ render();
 </script>
 </body>
 </html>
-    function restartTest() {
-      answers = new Array(questions.length).fill(null);
-      current = 0;
-      renderQuestion();
-    }
-
-    function shareResult(songName) {
-      const text = `我测出来最像 milet 的《${songName}》！你也来试试吧～`;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("结果文案已复制");
-      }).catch(() => {
-        alert("复制失败，请手动复制。");
-      });
-    }
-    
-    renderQuestion();
-  </script>
-</body>
-</html>
