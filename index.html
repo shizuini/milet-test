@@ -436,7 +436,7 @@
 {
   text: "你日常的情绪状态更接近：",
   left: "1 = 平稳、缓慢流动",
-  right: "7 = 起伏大、容易被点燃"
+  right: "7 = 丰富、容易被点燃"
 },
 {
   text: "面对让你在意的人或事，你更容易：",
@@ -580,7 +580,7 @@ A:2,B:2,C:3,D:2,E:2,F:2,G:3,H:2
       },
       {
         key: "december",
-        rel:5.8, exp:2.8, emo:3.8, self:5.1, time:2.2, vibe:2.2,
+        A:5.8,B:2.8,C:3.8,D:5.1,E:2.2,F:2.2,G:4.8,H:2.5,
         lyric: "Don't forget where you belong/Hold me like a babe again and sing a song",
         desc: "这是milet写给母亲的一首歌。你很容易把情感和记忆、季节、某种归属感连在一起。你的爱更像回望，也像温柔地记住。当你迷茫时，不要忘了我永远陪在你身边。",
         image: "images/14.jpg"
@@ -690,8 +690,8 @@ let current = 0;
 
 function render(){
   const q = questions[current];
-  document.getElementById("quiz").innerHTML = `
-    <div class="question">${q.text}</div>
+  document.getElementById("quizArea").innerHTML = `
+    <div class="question-text">${q.text}</div>
     <div>${q.left} ← → ${q.right}</div>
     <div class="scale">
       ${[1,2,3,4,5,6,7].map(n=>`
@@ -733,13 +733,12 @@ function showResult(){
     return {...s,d};
   }).sort((a,b)=>a.d-b.d)[0];
 
-  document.getElementById("quiz").innerHTML=`
-    <h2>你最像《${best.key}》</h2>
-    <p>${best.desc}</p>
-
-    <div class="feedback-text">
+  document.getElementById("quizArea").innerHTML = `
+  <h2>你最像《${best.key}》</h2>
+  <p>${best.desc}</p>
+  <div class="feedback-text">
     您对这个测试有任何建议，都可以邮件联系imnotshizu3@gmail.com，也欢迎分享测试结果，方便香蕉蕉调整参数等设计~
-    </div>
+  </div>
   `;
 }
 
